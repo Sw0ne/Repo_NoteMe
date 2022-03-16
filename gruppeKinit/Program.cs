@@ -8,81 +8,115 @@ using MySql.Data;
 
 namespace gruppeKinit
 {
-    class MySqlDBEinrichtung
+    class Program
     {
-        private MySqlConnection connection;
-        private string server;
-        private string database;
-        private string username;
-        private string password;
-
-        // KONSTRUKTOR
-        public MySqlDBEinrichtung()
+        static void Main(string[] args)
         {
-            Initialize();
-        }
+            string dbErstellung = @"    CREATE SCHEMA IF NOT EXISTS `gruppeK` DEFAULT CHARACTER SET utf8;
+                                        USE `gruppeK` ;
 
-        // WERTE FÜR DB FESTLEGEN (INKL. BENUTZEREINGABE VON USERNAME UND PASSWORT)
-        private void Initialize()
-        {
-            server = "localhost";
-            database = "gruppeK";
 
-            Console.WriteLine("Admin: ");
-            username = Console.ReadLine();
+                                        DROP TABLE IF EXISTS `gruppeK`.`Users` ;
 
-            Console.WriteLine("PW: ");
-            password = Console.ReadLine();
+                                        CREATE TABLE IF NOT EXISTS `gruppeK`.`Users` 
+                                        (
+                                        `idUsers` INT NOT NULL,
+                                        `vorname` VARCHAR(45) NULL,
+                                        `nachname` VARCHAR(45) NULL,
+                                        `username` VARCHAR(45) NULL,
+                                        PRIMARY KEY(`idUsers`)
+                                        )
+                                        ENGINE = InnoDB;
 
-            string connectionString;
-            connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "USERNAME=" + username + ";" + "PASSWORD=" + password + ";";
 
-            connection = new MySqlConnection(connectionString);
-        }
+                                        DROP TABLE IF EXISTS `gruppeK`.`TodoItems` ;
 
-        // VERBINDUNG HERSTELLEN / ÖFFNEN
-        private bool OpenConnection()
-        {
-            try
-            {
-                connection.Open();
-                return true;
-            }
-            catch (MySqlException ex)
-            {
-                //When handling errors, you can your application's response based 
-                //on the error number.
-                //The two most common error numbers when connecting are as follows:
-                //0: Cannot connect to server.
-                //1045: Invalid user name and/or password.
-                switch (ex.Number)
-                {
-                    case 0:
-                        Console.WriteLine("Cannot connect to server.  Contact administrator");
-                        break;
+                                        CREATE TABLE IF NOT EXISTS `gruppeK`.`TodoItems` 
+                                        (
+                                        `idTodoItems` INT NOT NULL,
+                                        `TodoItemContent` VARCHAR(100) NULL,
+                                        `DoneOrNot` BIT(2) NULL,
+                                        PRIMARY KEY(`idTodoItems`)
+                                        )
+                                        ENGINE = InnoDB;
 
-                    case 1045:
-                        Console.WriteLine("Invalid username/password, please try again");
-                        break;
-                }
-                return false;
-            }
-        }
 
-        // VERBINDUNG SCHLIESSEN
-        private bool CloseConnection()
+                                        DROP TABLE IF EXISTS `gruppeK`.`DailyNotes` ;
 
-        {
-            try
-            {
-                connection.Close();
-                return true;
-            }
-            catch (MySqlException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
+                                        CREATE TABLE IF NOT EXISTS `gruppeK`.`DailyNotes` 
+                                        (
+                                        `idDailyNotes` INT NOT NULL,
+                                        `NoteContent` VARCHAR(255) NULL,
+                                        PRIMARY KEY(`idDailyNotes`)
+                                        )
+                                        ENGINE = InnoDB;
+
+
+                                        DROP TABLE IF EXISTS `gruppeK`.`Moods` ;
+
+                                        CREATE TABLE IF NOT EXISTS `gruppeK`.`Moods` 
+                                        (
+                                        `idMoods` INT NOT NULL,
+                                        `Mood` TINYINT(10) NULL,
+                                        PRIMARY KEY(`idMoods`)
+                                        )
+                                        ENGINE = InnoDB;
+
+
+                                        DROP TABLE IF EXISTS `gruppeK`.`DiaryEntry` ;
+
+                                        CREATE TABLE IF NOT EXISTS `gruppeK`.`DiaryEntry` 
+                                        (
+                                        `idDiaryEntry` INT NOT NULL,
+                                        `idUsers` INT NULL,
+                                        `idMoods` INT NULL,
+                                        `idTodoItems` INT NULL,
+                                        `idDailyNotes` INT NULL,
+                                        PRIMARY KEY(`idDiaryEntry`),
+                                        INDEX `idUsers_idx` (`idUsers` ASC) VISIBLE,
+                                        INDEX `idMoods_idx` (`idMoods` ASC) VISIBLE,
+                                        INDEX `idTodoItems_idx` (`idTodoItems` ASC) VISIBLE,
+                                        INDEX `idDailyNotes_idx` (`idDailyNotes` ASC) VISIBLE,
+                                        CONSTRAINT `idUsers`
+                                            FOREIGN KEY(`idUsers`)
+                                            REFERENCES `gruppeK`.`Users` (`idUsers`)
+                                            ON DELETE NO ACTION
+                                            ON UPDATE NO ACTION,
+                                        CONSTRAINT `idMoods`
+                                            FOREIGN KEY(`idMoods`)
+                                            REFERENCES `gruppeK`.`Moods` (`idMoods`)
+                                            ON DELETE NO ACTION
+                                            ON UPDATE NO ACTION,
+                                        CONSTRAINT `idTodoItems`
+                                            FOREIGN KEY(`idTodoItems`)
+                                            REFERENCES `gruppeK`.`TodoItems` (`idTodoItems`)
+                                            ON DELETE NO ACTION
+                                            ON UPDATE NO ACTION,
+                                        CONSTRAINT `idDailyNotes`
+                                            FOREIGN KEY(`idDailyNotes`)
+                                            REFERENCES `gruppeK`.`DailyNotes` (`idDailyNotes`)
+                                            ON DELETE NO ACTION
+                                            ON UPDATE NO ACTION
+                                            )
+                                            ENGINE = InnoDB;
+
+                                        SET SQL_MODE = '';
+                                        DROP USER IF EXISTS root;
+                                        SET SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+                                        
+                                        CREATE USER 'root' IDENTIFIED BY '****';
+
+                                        GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE `gruppeK`.*TO 'root';
+                                        GRANT SELECT, INSERT, TRIGGER ON TABLE `gruppeK`.*TO 'root';
+                                        GRANT ALL ON `gruppeK`.*TO 'root';
+                                        GRANT EXECUTE ON ROUTINE `gruppeK`.*TO 'root';
+                                        GRANT SELECT ON TABLE `gruppeK`.*TO 'root';"
+            ;
+
+            MySqlDBEinrichtungKlasse test1 = new MySqlDBEinrichtungKlasse();
+            Console.ReadLine();
+
+            test1.OpenConnection();
         }
     }
 }
