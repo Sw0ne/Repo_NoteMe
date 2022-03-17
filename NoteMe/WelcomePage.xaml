@@ -26,14 +26,22 @@
 
         <!-- Benutzername und Passwort -->
         <Grid Grid.Row="1" Background="LightSteelBlue">
-            <TextBlock Height="20" Width="400" HorizontalAlignment="Center" Margin="255,10,245,205" Text="Benutzername" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="14" Background="Transparent"/>
-            <TextBox Height="40" Width="400" HorizontalAlignment="Center" Margin="255,30,245,165" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" TextChanged="TextBox_TextChanged"/>
+            <TextBlock Height="20" Width="400" HorizontalAlignment="Center" Margin="255,25,245,190" Text="Benutzername" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="14" Background="Transparent"/>
+            <TextBox x:Name="TextBoxBenutzername" Height="40" Width="400" HorizontalAlignment="Center" Margin="255,50,245,145" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" TextChanged="TextBoxBenutzername_TextChanged"/>
 
-            <TextBlock Height="20" Width="400" HorizontalAlignment="Center" Margin="255,75,245,140" Text="Passwort" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="14" Background="Transparent"/>
-            <TextBox Height="40" Width="400" HorizontalAlignment="Center" Margin="255,95,245,100" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" PasswordBox.PasswordChanged="TextBox_PasswordChanged"/>
 
-            <Button x:Name="AnmeldeButton" Height="40" Width="200" Background="DarkSlateGray" HorizontalAlignment="Center" BorderThickness="0" Margin="350,150,350,45" Click="AnmeldeButton_Click">
+
+            <Button x:Name="AnmeldeButton" Height="40" Width="200" Background="DarkSlateGray" HorizontalAlignment="Center" BorderThickness="0" Margin="350,115,350,80" Click="AnmeldeButton_Click">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Anmelden" FontSize="20" Foreground="White"/>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="2"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button x:Name="NeuesKonto" Height="30" Width="120" Background="DarkSlateGray" HorizontalAlignment="Center" BorderThickness="0" Margin="390,160,390,45" Click="NeuesKonto_Click">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Neues Konto" FontSize="16" Foreground="White"/>
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="2"/>
@@ -44,7 +52,7 @@
 
         <!-- Kontaktdaten -->
         <Grid Grid.Row="2" Background="LightSteelBlue">
-            <TextBlock Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Hilfe, ich habe meine Anmeldedaten vergessen und möchte diese ändern!" Foreground="DarkSlateGray" FontSize="14" Background="Transparent"/>
+            <TextBlock Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Text="©SandraWandzik2022" Foreground="DarkSlateGray" FontSize="12" Background="Transparent" Margin="395,10,385,0"/>
         </Grid>
 
     </Grid>

@@ -16,30 +16,24 @@ using System.Windows.Shapes;
 namespace NoteMe
 {
     /// <summary>
-    /// Interaction logic for WelcomePage.xaml
+    /// Interaction logic for UserPage.xaml
     /// </summary>
-    public partial class WelcomePage : Page
+    public partial class UserPage : Page
     {
-        public WelcomePage()
+        public UserPage()
         {
             InitializeComponent();
         }
 
-        private void TextBoxBenutzername_TextChanged(object sender, TextChangedEventArgs e)
+        private void AbbrechenButton_Click(object sender, RoutedEventArgs e)
         {
-
+            WelcomeWindow welcomewindow = new WelcomeWindow();
+            welcomewindow.Show();
         }
 
-        private void AnmeldeButton_Click(object sender, RoutedEventArgs e)
+        private void NeuesKontoPasstSo_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWindow = new HomeWindow();
-            homeWindow.Show();
-        }
 
-        private void NeuesKonto_Click(object sender, RoutedEventArgs e)
-        {
-            UserWindow userWindow = new UserWindow();
-            userWindow.Show();
         }
     }
 }
