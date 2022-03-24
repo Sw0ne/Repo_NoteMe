@@ -86,7 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="gruppeKinit.cs" />
     <Compile Include="MySqlDBEinrichtungKlasse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

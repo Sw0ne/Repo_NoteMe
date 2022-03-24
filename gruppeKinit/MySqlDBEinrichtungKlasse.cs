@@ -32,10 +32,10 @@ namespace gruppeKinit
             username = Console.ReadLine();
 
             Console.WriteLine("PW: ");
-            password = Console.ReadLine();
+            password = Console.ReadLine(); //statt console readline sternchen - keine ausgabe von dem was eingetippt wurde - https://stackoverflow.com/questions/3404421/password-masking-console-application
 
             string connectionString;
-            connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "USERNAME=" + username + ";" + "PASSWORD=" + password + ";";
+            connectionString = "SERVER=" + server + ";" + "USERNAME=" + username + ";" + "PASSWORD=" + password + ";"; // evtl teil mit database weglassen
 
             connection = new MySqlConnection(connectionString);
         }
@@ -50,15 +50,12 @@ namespace gruppeKinit
             }
             catch (MySqlException ex)
             {
-                //When handling errors, you can your application's response based 
-                //on the error number.
-                //The two most common error numbers when connecting are as follows:
-                //0: Cannot connect to server.
-                //1045: Invalid user name and/or password.
+                // Die zwei häufigsten Fehler beim Herstellen einer Connection zum Server
                 switch (ex.Number)
                 {
                     case 0:
                         Console.WriteLine("Cannot connect to server.  Contact administrator");
+                        Console.WriteLine(ex.Message);
                         break;
 
                     case 1045:
