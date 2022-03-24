@@ -81,5 +81,25 @@ namespace gruppeKinit
                 return false;
             }
         }
+
+        internal void Execute(string query)
+        {
+            try
+            {
+                // MySqlCommand-Objekt
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                // Ausführen des MySqlCommands
+                command.ExecuteNonQuery();
+
+                Console.WriteLine("Jap, hat funktioniert");
+
+            }
+            catch (Exception ex)
+            {
+                // Fehler-Mitteilung
+                Console.WriteLine("Exception: " + ex.Message);
+            }
+        }
     }
 }
