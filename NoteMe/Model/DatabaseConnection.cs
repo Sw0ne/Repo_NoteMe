@@ -17,22 +17,36 @@ namespace NoteMe.Model
         private string database;
         private string username;
         private string password;
+        private static DatabaseConnection _instance;
 
         // KONSTRUKTOR
-        public DatabaseConnection()
+        private DatabaseConnection()
         {
             Initialize();
+        }
+
+        public  static DatabaseConnection Instance
+        {
+            get
+            {
+                // Diese Version ist nicht Thread-Safe, aber das ist in dieser Applikation OK.
+                if (_instance == null)
+                {
+                    _instance = new DatabaseConnection();
+                }
+                return _instance;
+            }
+        }
+
+        internal void Write(string query, params object[] args)
+        {
+            throw new NotImplementedException();
         }
 
         // WERTE FÜR DB FESTLEGEN (INKL. BENUTZEREINGABE VON USERNAME UND PASSWORT)
         private void Initialize()
         {
-            server = "localhost";
-            database = "gruppeK";
-
-            // Database hier mit eingefügt, weil sie zu diesem Zeitpunkt schon existiert (nach Init)
-            string connectionString;
-            connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + "USERNAME=" + username + ";" + "PASSWORD=" + password + ";"; // evtl teil mit database weglassen
+            string connectionString = "SERVER=localhost;DATABASE=gruppeK;USERNAME=gruppeKadmin;PASSWORD=passwort;";
 
             connection = new MySqlConnection(connectionString);
         }

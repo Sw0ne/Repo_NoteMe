@@ -21,9 +21,14 @@ namespace NoteMe
     /// </summary>
     public partial class UserPage : Page
     {
+        private User _user;
+
         public UserPage()
         {
             InitializeComponent();
+
+            _user = new User();
+            this.DataContext = _user;
         }
 
         private void AbbrechenButton_Click(object sender, RoutedEventArgs e)
@@ -35,22 +40,8 @@ namespace NoteMe
 
         private void NeuesKontoPasstSo_Click(object sender, RoutedEventArgs e)
         {
-            // Erstellen von Bindings zur Benutzereingabe bei der Erstellung eines neuen Users (von View abgegrenzt, also nicht einfach z.B. Text = "{Binding Model.User.vorname}", oder ist das besser?)
-
-            Binding bindingInputVorname = new Binding("Text");
-            bindingInputVorname.Source = inputVorname;
-            bindingInputVorname.Mode = BindingMode.TwoWay;
-
-            Binding bindingInputNachname = new Binding("Text");
-            bindingInputNachname.Source = inputNachname;
-            bindingInputNachname.Mode = BindingMode.TwoWay;
-
-            Binding bindingInputWunschUsername = new Binding("Text");
-            bindingInputWunschUsername.Source = inputWunschUsername;
-            bindingInputWunschUsername.Mode = BindingMode.TwoWay;
-
-            User user = new User(bindingInputNachname, bindingInputNachname, bindingInputWunschUsername); 
-
+            Console.WriteLine($"Nachname: {_user.Nachname}");
+            _user.Save();
             // Zu WelcomeWindow wechseln
             WelcomeWindow welcomewindow = new WelcomeWindow();
             welcomewindow.Show();

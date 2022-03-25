@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NoteMe.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace NoteMe
         public WelcomeWindow() // Passiert wenn Objekt erstellt wird / Konstruktor
         {
             InitializeComponent();
+            var unused = DatabaseConnection.Instance;
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)

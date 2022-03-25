@@ -11,16 +11,14 @@ namespace NoteMe.Model
     {
         // Fields
         private int _idUser;
-        public Binding vorname;
-        public Binding nachname;
-        public Binding username;
+        public string Vorname { get; set; }
+        public string Nachname { get; set; }
+        public string Username { get; set; }
 
         // Konstruktor
-        public User(Binding vorname, Binding nachname, Binding username)
+        public User()
         {
-            this.vorname = vorname;
-            this.nachname = nachname;
-            this.username = username;
+
         }
 
         // Properties
@@ -34,6 +32,11 @@ namespace NoteMe.Model
             {
                 _idUser = value;
             }
+        }
+
+        internal void Save()
+        {
+            DatabaseConnection.Instance.Write("insert into user (vorname,nachname,username) values ($,$,$)", Vorname, Nachname, Username);
         }
     }
 }
