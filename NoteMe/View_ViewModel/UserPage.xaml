@@ -23,13 +23,13 @@
             <TextBlock Height="30" Width="608" HorizontalAlignment="Center" TextAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Dazu musst du uns allerdings noch ein paar Kleinigkeiten über dich verraten." Margin="0,60,0,475" />
 
             <TextBlock Height="25" Width="420" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Dein Vorname ist..." Margin="240,130,0,410" />
-            <TextBox Height="40" Width="420" HorizontalAlignment="Center" Margin="240,160,240,365" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="inputVorname" Height="40" Width="420" HorizontalAlignment="Center" Margin="240,160,240,365" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
             <TextBlock Height="25" Width="420" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Dein Nachname lautet..." Margin="240,230,0,310" />
-            <TextBox Height="40" Width="420" HorizontalAlignment="Center" Margin="240,260,240,265" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="inputNachname" Height="40" Width="420" HorizontalAlignment="Center" Margin="240,260,240,265" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
             <TextBlock Height="25" Width="420" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Du hast dir folgenden Benutzernamen ausgedacht..." Margin="240,330,0,205" />
-            <TextBox Height="40" Width="420" HorizontalAlignment="Center" Margin="240,362,240,163" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="inputWunschUsername" Height="40" Width="420" HorizontalAlignment="Center" Margin="240,362,240,163" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
             <TextBlock Height="35" Width="420" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkRed" FontWeight="Bold" FontSize="12" Background="Transparent" Margin="240,407,0,123">
                 Bitte merke dir deinen Benutzernamen (oder schreib ihn dir auf)! <LineBreak/> Ohne diesen kannst du nie wieder auf deine NoteMe-Einträge zugreifen!

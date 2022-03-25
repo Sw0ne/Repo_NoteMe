@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=8.0.28.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 8.0.28\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -56,26 +60,27 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\DailyNote.cs" />
+    <Compile Include="Model\DatabaseConnection.cs" />
     <Compile Include="Model\DiaryEntry.cs" />
     <Compile Include="Model\Mood.cs" />
     <Compile Include="Model\TodoItem.cs" />
     <Compile Include="Model\User.cs" />
-    <Compile Include="View+ViewModel\HomeWindow.xaml.cs">
+    <Compile Include="View_ViewModel\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View+ViewModel\UserPage.xaml.cs">
+    <Compile Include="View_ViewModel\UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View+ViewModel\UserWindow.xaml.cs">
+    <Compile Include="View_ViewModel\UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View+ViewModel\WelcomePage.xaml.cs">
+    <Compile Include="View_ViewModel\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View+ViewModel\WelcomeWindow.xaml.cs">
+    <Compile Include="View_ViewModel\WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="View+ViewModel\HomePage1.xaml">
+    <Page Include="View_ViewModel\HomePage1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -83,26 +88,26 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View+ViewModel\HomePage1.xaml.cs">
+    <Compile Include="View_ViewModel\HomePage1.xaml.cs">
       <DependentUpon>HomePage1.xaml</DependentUpon>
     </Compile>
-    <Page Include="View+ViewModel\HomeWindow.xaml">
+    <Page Include="View_ViewModel\HomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View+ViewModel\UserPage.xaml">
+    <Page Include="View_ViewModel\UserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View+ViewModel\UserWindow.xaml">
+    <Page Include="View_ViewModel\UserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View+ViewModel\WelcomePage.xaml">
+    <Page Include="View_ViewModel\WelcomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View+ViewModel\WelcomeWindow.xaml">
+    <Page Include="View_ViewModel\WelcomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

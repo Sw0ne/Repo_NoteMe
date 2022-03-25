@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using MySql.Data;
 
-namespace gruppeKinit
+namespace NoteMe.Model
 {
-    class MySqlDBEinrichtungKlasse
+    // Klasse ist für Verbindungsaufbau zu Datenbank (Nach Erstellung) gedacht
+
+    class DatabaseConnection
     {
         private MySqlConnection connection;
         private string server;
@@ -17,7 +19,7 @@ namespace gruppeKinit
         private string password;
 
         // KONSTRUKTOR
-        public MySqlDBEinrichtungKlasse()
+        public DatabaseConnection()
         {
             Initialize();
         }
@@ -28,14 +30,9 @@ namespace gruppeKinit
             server = "localhost";
             database = "gruppeK";
 
-            Console.WriteLine("Admin: ");
-            username = Console.ReadLine();
-
-            Console.WriteLine("PW: ");
-            password = Console.ReadLine(); //statt console readline sternchen - keine ausgabe von dem was eingetippt wurde - https://stackoverflow.com/questions/3404421/password-masking-console-application
-
+            // Database hier mit eingefügt, weil sie zu diesem Zeitpunkt schon existiert (nach Init)
             string connectionString;
-            connectionString = "SERVER=" + server + ";" + "USERNAME=" + username + ";" + "PASSWORD=" + password + ";"; // evtl teil mit database weglassen
+            connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + "USERNAME=" + username + ";" + "PASSWORD=" + password + ";"; // evtl teil mit database weglassen
 
             connection = new MySqlConnection(connectionString);
         }
@@ -92,7 +89,7 @@ namespace gruppeKinit
                 // Ausführen des MySqlCommands
                 command.ExecuteNonQuery();
 
-                Console.WriteLine("Datenbank wurde erstellt!");
+                Console.WriteLine("Query erfolgreich!");
 
             }
             catch (Exception ex)
@@ -101,5 +98,6 @@ namespace gruppeKinit
                 Console.WriteLine("Exception: " + ex.Message);
             }
         }
+
     }
 }

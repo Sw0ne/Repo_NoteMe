@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace NoteMe.Model
 {
@@ -10,14 +11,16 @@ namespace NoteMe.Model
     {
         // Fields
         private int _idUser;
-        private string _vorname;
-        private string _nachname;
-        private string _username;
+        public Binding vorname;
+        public Binding nachname;
+        public Binding username;
 
         // Konstruktor
-        public User()
+        public User(Binding vorname, Binding nachname, Binding username)
         {
-
+            this.vorname = vorname;
+            this.nachname = nachname;
+            this.username = username;
         }
 
         // Properties
@@ -30,42 +33,6 @@ namespace NoteMe.Model
             set
             {
                 _idUser = value;
-            }
-        }
-
-        public string Vorname
-        {
-            get
-            {
-                return _vorname;
-            }
-            set
-            {
-                _vorname = value;
-            }
-        }
-
-        public string Nachname
-        {
-            get
-            {
-                return _nachname;
-            }
-            set
-            {
-                _nachname = value;
-            }
-        }
-
-        public string Username
-        {
-            get
-            {
-                return _username;
-            }
-            set
-            {
-                _username = value;
             }
         }
     }
