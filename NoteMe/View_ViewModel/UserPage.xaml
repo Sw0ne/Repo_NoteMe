@@ -19,24 +19,30 @@
 
         <!-- Logo -->
         <Grid Grid.Row="0" Background="LightSteelBlue" >
-            <TextBlock Height="35" Width="684" HorizontalAlignment="Center" TextAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="24" Background="Transparent" Text="Hier kannst du dein eigenes Konto erstellen!" Margin="0,20,0,510"/>
-            <TextBlock Height="30" Width="608" HorizontalAlignment="Center" TextAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Dazu musst du uns allerdings noch ein paar Kleinigkeiten über dich verraten." Margin="0,60,0,475" />
+            <TextBlock Height="35" Width="684" HorizontalAlignment="Center" TextAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="24" Background="Transparent" Text="Schön, dass du hier bist!" Margin="108,45,108,485"/>
+            <TextBlock Height="30" Width="700" HorizontalAlignment="Center" TextAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Bitte verrate mir wie du heißt, damit ich zu deinem ganz persönlichen Notizbuch werde!" Margin="100,95,100,440" />
 
-            <TextBlock Height="25" Width="420" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Dein Vorname ist..." Margin="240,130,0,410" />
-            <TextBox x:Name="inputVorname" Text="{Binding Vorname}" Height="40" Width="420" HorizontalAlignment="Center" Margin="240,160,240,365" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+            <TextBlock Height="25" Width="420" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Dein Vorname ist..." Margin="240,200,0,340" />
+            <TextBox x:Name="inputVorname" Text="{Binding Vorname}" Height="40" Width="420" HorizontalAlignment="Center" Margin="240,230,240,295" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
-            <TextBlock Height="25" Width="420" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Dein Nachname lautet..." Margin="240,230,0,310" />
-            <TextBox x:Name="inputNachname" Text="{Binding Nachname}" Height="40" Width="420" HorizontalAlignment="Center" Margin="240,260,240,265" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+            <TextBlock Height="25" Width="420" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Dein Nachname lautet..." Margin="240,290,0,250" />
+            <TextBox x:Name="inputNachname" Text="{Binding Nachname}" Height="40" Width="420" HorizontalAlignment="Center" Margin="240,320,240,205" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" TextChanged="InputNachname_TextChanged"/>
 
-            <TextBlock Height="25" Width="420" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Du hast dir folgenden Benutzernamen ausgedacht..." Margin="240,330,0,205" />
-            <TextBox x:Name="inputWunschUsername" Text="{Binding Username}" Height="40" Width="420" HorizontalAlignment="Center" Margin="240,362,240,163" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+            <Button x:Name="HelpButton" Height="40" Width="40" Background="IndianRed" HorizontalAlignment="Center" BorderThickness="0" Margin="240,385,620,140" Click="HelpButton_Click">
+                <TextBlock HorizontalAlignment="Stretch" Text="?" VerticalAlignment="Stretch" FontSize="28" Foreground="White"/>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="45"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
 
-            <TextBlock Height="35" Width="420" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkRed" FontWeight="Bold" FontSize="12" Background="Transparent" Margin="240,407,0,123">
-                Bitte merke dir deinen Benutzernamen (oder schreib ihn dir auf)! <LineBreak/> Ohne diesen kannst du nie wieder auf deine NoteMe-Einträge zugreifen!
+            <TextBlock x:Name="HelpBeschreibungTextBlock" Height="40" Margin="290,385,240,140" Background="IndianRed" Foreground="White" FontSize="14" Visibility="Hidden" TextAlignment="Center">
+                Damit dein NoteMe-Erlebnis noch besser wird, würde <LineBreak/> ich dich gerne mit deinem Namen ansprechen.
             </TextBlock>
 
-            <Button x:Name="NeuesKontoPasstSo" Height="40" Width="200" Background="DarkSlateGray" HorizontalAlignment="Center" BorderThickness="0" Margin="230,497,470,28" Click="NeuesKontoPasstSo_Click">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Konto erstellen" FontSize="20" Foreground="White"/>
+            <Button x:Name="DasBinIchButton" Height="40" Width="200" Background="DarkSlateGray" HorizontalAlignment="Center" BorderThickness="0" Margin="230,497,470,28" Click="NeuesKontoPasstSo_Click">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Das bin ich!" FontSize="20" Foreground="White"/>
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="2"/>

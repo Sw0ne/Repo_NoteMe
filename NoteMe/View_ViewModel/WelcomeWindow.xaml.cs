@@ -23,12 +23,21 @@ namespace NoteMe
         public WelcomeWindow() // Passiert wenn Objekt erstellt wird / Konstruktor
         {
             InitializeComponent();
+
             var unused = DatabaseConnection.Instance;
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                DragMove();
+            }
         }
     }
 }

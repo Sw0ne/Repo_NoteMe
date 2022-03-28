@@ -28,5 +28,13 @@ namespace NoteMe
         {
             Application.Current.Shutdown();
         }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                DragMove();
+            }
+        }
     }
 }

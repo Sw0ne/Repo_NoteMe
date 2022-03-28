@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NoteMe"
         mc:Ignorable="d"
-        Title="OrgaNICE" Height="600" Width="900" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="OrgaNICE" Height="600" Width="900" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown" x:Name="WelcomeWindowStart">
 
     <!-- GROSSES GRID / KOMPLETTE PAGE -->
     <Grid>
@@ -19,7 +19,7 @@
 
         <!-- GRID (TASKLEISTE) -->
         <Grid x:Name="GridTaskLeiste" Background="LightSlateGray" Grid.Row="0">
-            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" Foreground="White" Text="OrgaNICE"/>
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" Foreground="White" Text="NoteMe"/>
             <Button x:Name="ButtonExit" Width="25" Height="25" Margin="0,0,10,0" Background="DarkSlateGray" Click="ButtonExit_Click" HorizontalAlignment="Right" VerticalAlignment="Center" BorderThickness="0">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="❌" FontSize="17" Foreground="White"/>
                 <Button.Resources>

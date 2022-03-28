@@ -47,5 +47,22 @@ namespace NoteMe
             welcomewindow.Show();
 
         }
+
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (HelpBeschreibungTextBlock.Visibility == Visibility.Hidden)
+            {
+                HelpBeschreibungTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                HelpBeschreibungTextBlock.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void InputNachname_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
