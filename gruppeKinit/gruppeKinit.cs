@@ -26,7 +26,6 @@ namespace gruppeKinit
                 `idUser`            INT             NOT NULL AUTO_INCREMENT,
                 `vorname`           VARCHAR(45)     NOT NULL,
                 `nachname`          VARCHAR(45)     NOT NULL,
-                `username`          VARCHAR(45)     NOT NULL,
                 PRIMARY KEY (`idUser`)
             )
             ENGINE = InnoDB;

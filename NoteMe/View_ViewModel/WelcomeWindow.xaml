@@ -30,8 +30,56 @@
             </Button>
         </Grid>
 
-        <!-- FRAME / ANZEIGEKASTEN -->
-        <Frame x:Name="Anzeige" Grid.Row="2" Source="WelcomePage.xaml" NavigationUIVisibility="Hidden"/>
+        <!-- Grid 1: Ganze Anezige -->
+        <Grid x:Name="Anzeige" Grid.Row="2"  >
 
+            <!-- GROSSES GRID / KOMPLETTE PAGE -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="900"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <!-- Grid 2: Logo -->
+            <Grid Grid.Row="0" Background="LightSteelBlue" >
+                <TextBlock Text="NoteMe" FontSize="200" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Impact"/>
+            </Grid>
+
+            <!-- Grid 3: Tageszeit / Name + Weiter-Button + Neues Konto Button -->
+            <Grid Grid.Row="1" Background="LightSteelBlue">
+
+                <!-- Tageszeit / Name (Gruss) -->
+                <TextBlock x:Name="GrussBlockTageszeit" Height="50" Width="300" HorizontalAlignment="Center" Margin="150,20,450,165" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="28" Background="Transparent" TextAlignment="Right" Visibility="Hidden"/>
+                <TextBlock x:Name="GrussBlockName" Text="{Binding Vorname}" Height="50" Width="300" HorizontalAlignment="Center" Margin="450,20,150,165" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="28" Background="Transparent" TextAlignment="Left" Visibility="Hidden"/>
+
+                <!-- Buttons -->
+                <Button x:Name="WeiterButton" Height="40" Width="200" Background="DarkSlateGray" HorizontalAlignment="Center" BorderThickness="0" Margin="350,170,350,25" Click="WeiterButton_Click" Visibility="Hidden">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Weiter" FontSize="20" Foreground="White"/>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="2"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button x:Name="NeuesKonto" Height="40" Width="200" Background="DarkSlateGray" HorizontalAlignment="Center" BorderThickness="0" Margin="350,170,350,25" Click="NeuesKonto_Click" Visibility="Visible">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Neues Konto" FontSize="20" Foreground="White"/>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="2"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+
+            <!-- Grid 4: Copyright -->
+            <Grid Grid.Row="2" Background="LightSteelBlue">
+                <TextBlock Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Text="©SandraWandzik2022" Foreground="DarkSlateGray" FontSize="12" Background="Transparent" Margin="395,10,385,0"/>
+            </Grid>
+
+        </Grid>
     </Grid>
 </Window>

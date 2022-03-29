@@ -13,7 +13,6 @@ namespace NoteMe.Model
         private int _idUser;
         public string Vorname { get; set; }
         public string Nachname { get; set; }
-        public string Username { get; set; }
 
         // Konstruktor
         public User()
@@ -36,7 +35,18 @@ namespace NoteMe.Model
 
         internal void Save()
         {
-            DatabaseConnection.Instance.Write("insert into user (vorname,nachname,username) values ($,$,$)", Vorname, Nachname, Username);
+            DatabaseConnection.Instance.Write($"INSERT INTO user (vorname,nachname) VALUES ({Vorname},{Nachname});");
+            // Erste Version: DatabaseConnection.Instance.Write("INSERT INTO user (vorname,nachname) VALUES ($,$)", Vorname, Nachname);
+        }
+
+        internal void ShowDataVorname()
+        {
+            DatabaseConnection.Instance.Execute($"SELECT vorname FROM user;");
+        }
+
+        internal void ShowDataNachname()
+        {
+            DatabaseConnection.Instance.Execute($"SELECT nachname FROM user;");
         }
     }
 }

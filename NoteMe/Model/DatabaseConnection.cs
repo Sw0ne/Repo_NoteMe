@@ -13,10 +13,6 @@ namespace NoteMe.Model
     class DatabaseConnection
     {
         private MySqlConnection connection;
-        private string server;
-        private string database;
-        private string username;
-        private string password;
         private static DatabaseConnection _instance;
 
         // KONSTRUKTOR
@@ -25,7 +21,7 @@ namespace NoteMe.Model
             Initialize();
         }
 
-        public  static DatabaseConnection Instance
+        public static DatabaseConnection Instance
         {
             get
             {

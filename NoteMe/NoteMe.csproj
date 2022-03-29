@@ -68,42 +68,21 @@
     <Compile Include="View_ViewModel\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View_ViewModel\UserPage.xaml.cs">
-      <DependentUpon>UserPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View_ViewModel\UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View_ViewModel\WelcomePage.xaml.cs">
-      <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View_ViewModel\WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="View_ViewModel\HomePage1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="View_ViewModel\HomePage1.xaml.cs">
-      <DependentUpon>HomePage1.xaml</DependentUpon>
     </Compile>
     <Page Include="View_ViewModel\HomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View_ViewModel\UserPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View_ViewModel\UserWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View_ViewModel\WelcomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -138,6 +117,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Pictures\angry.png" />
+    <Resource Include="Pictures\angry2.png" />
+    <Resource Include="Pictures\angry3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\angry4.png" />
+    <Resource Include="Pictures\angry5.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
