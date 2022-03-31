@@ -98,6 +98,7 @@ namespace NoteMe.Model
                 }
             }
 
+            reader.Close();
             return data;
         }
 

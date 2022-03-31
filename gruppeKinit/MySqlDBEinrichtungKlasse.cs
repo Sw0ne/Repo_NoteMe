@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using MySql.Data;
+using System.Security;
 
 namespace gruppeKinit
 {
@@ -28,12 +29,35 @@ namespace gruppeKinit
             server = "localhost";
             database = "gruppeK";
 
+            //EINGABE ADMIN NAME
             Console.WriteLine("Admin: ");
             username = Console.ReadLine();
 
+            // EINGABE ADMIN PASSWORT
             Console.WriteLine("PW: ");
-            password = Console.ReadLine(); //statt console readline sternchen - keine ausgabe von dem was eingetippt wurde - https://stackoverflow.com/questions/3404421/password-masking-console-application
+            password = string.Empty;
+            ConsoleKeyInfo key;
 
+            do // Logik für verdecktes Passwort
+            {
+                key = Console.ReadKey(true);
+
+                // Backspace Should Not Work
+                if (key.Key != ConsoleKey.Backspace)
+                {
+                    password += key.KeyChar;
+                    Console.Write("*");
+                }
+                else
+                {
+                    password = password.Remove(password.Length - 1);
+                    Console.Write("\b \b");
+                }
+            }
+            while (key.Key != ConsoleKey.Enter);
+            Console.WriteLine();
+
+            // VERBINDUNGSAUFBAU
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "USERNAME=" + username + ";" + "PASSWORD=" + password + ";"; // evtl teil mit database weglassen
 
@@ -100,6 +124,34 @@ namespace gruppeKinit
                 // Fehler-Mitteilung
                 Console.WriteLine("Exception: " + ex.Message);
             }
+        }
+
+        // Passwort verdecken
+        public SecureString GetPassword()
+        {
+            var pwd = new SecureString();
+            while (true)
+            {
+                ConsoleKeyInfo i = Console.ReadKey(true);
+                if (i.Key == ConsoleKey.Enter)
+                {
+                    break;
+                }
+                else if (i.Key == ConsoleKey.Backspace)
+                {
+                    if (pwd.Length > 0)
+                    {
+                        pwd.RemoveAt(pwd.Length - 1);
+                        Console.Write("\b \b");
+                    }
+                }
+                else if (i.KeyChar != '\u0000') // KeyChar == '\u0000' if the key pressed does not correspond to a printable character, e.g. F1, Pause-Break, etc
+                {
+                    pwd.AppendChar(i.KeyChar);
+                    Console.Write("*");
+                }
+            }
+            return pwd;
         }
     }
 }

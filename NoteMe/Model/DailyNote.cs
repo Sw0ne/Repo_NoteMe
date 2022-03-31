@@ -55,5 +55,31 @@ namespace NoteMe.Model
                 _idDiaryEntry = value;
             }
         }
+
+        // METHODEN
+        internal void Save()
+        {
+            var data = new Dictionary<string, string>
+            {
+                {"@NoteContent", NoteContent },
+                // Key , Value
+            };
+
+            DatabaseConnection.Instance.Write("INSERT INTO dailyNotes (noteContent) VALUES (@NoteContent)", data);
+        }
+
+        //internal void Load()
+        //{
+        //    var data = DatabaseConnection.Instance.Read("SELECT * FROM users;");
+
+        //    if (data.Count == 0)
+        //    {
+        //        return;
+        //    }
+
+        //    Vorname = data["vorname"];
+        //    Nachname = data["nachname"];
+        //}
+
     }
 }

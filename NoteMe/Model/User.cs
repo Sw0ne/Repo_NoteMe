@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace NoteMe.Model
 {
-    class User : INotifyPropertyChanged
+    class User
     {
         // Konstruktor
         public User()
@@ -32,7 +32,6 @@ namespace NoteMe.Model
                 if (_Vorname != value)
                 {
                     _Vorname = value;
-                    OnPropertyChanged();
                 }
             }
         }
@@ -64,7 +63,6 @@ namespace NoteMe.Model
                 if (_Nachname != value)
                 {
                     _Nachname = value;
-                    OnPropertyChanged();
                 }
             }
         }
@@ -95,15 +93,17 @@ namespace NoteMe.Model
             Nachname = data["nachname"];
         }
 
-
-        // Create the OnPropertyChanged method to raise the event
-        // The calling member's name will be used as the parameter.
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        internal void GetUserId()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            var data = DatabaseConnection.Instance.Read("SELECT idUser FROM users;");
+
+            if (data.Count == 0)
+            {
+                return;
+            }
+
+            Vorname = data["vorname"];
+            Nachname = data["nachname"];
         }
     }
 }
