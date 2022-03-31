@@ -53,10 +53,10 @@
 
                 <!-- Tageszeit / Name (Gruss) -->
                 <TextBlock x:Name="GrussBlockTageszeit" Height="50" Width="300" HorizontalAlignment="Center" Margin="150,20,450,165" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="28" Background="Transparent" TextAlignment="Right" Visibility="Hidden"/>
-                <TextBlock x:Name="GrussBlockName" Text="{Binding Vorname}" Height="50" Width="300" HorizontalAlignment="Center" Margin="450,20,150,165" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="28" Background="Transparent" TextAlignment="Left" Visibility="Hidden"/>
+                <TextBlock x:Name="GrussBlockName" Text="{Binding Path=Vorname, Source=User, Mode=OneWayToSource}" Height="50" Width="300" HorizontalAlignment="Center" Margin="450,20,150,165" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="28" Background="Transparent" TextAlignment="Left" Visibility="Hidden"/>
 
                 <!-- Buttons -->
-                <Button x:Name="WeiterButton" Height="40" Width="200" Background="DarkSlateGray" HorizontalAlignment="Center" BorderThickness="0" Margin="350,170,350,25" Click="WeiterButton_Click" Visibility="Hidden">
+                <Button x:Name="WeiterButton" Height="40" Width="200" Background="DarkSlateGray" HorizontalAlignment="Center" BorderThickness="0" Margin="-100,170,350,25" Click="WeiterButton_Click" Visibility="Visible">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Weiter" FontSize="20" Foreground="White"/>
                     <Button.Resources>
                         <Style TargetType="Border">

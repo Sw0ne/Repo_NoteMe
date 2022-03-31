@@ -12,13 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using NoteMe.Model;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace NoteMe
 {
     /// <summary>
     /// Interaction logic for HomeWindow.xaml
     /// </summary>
-    public partial class HomeWindow : Window
+    public partial class HomeWindow : INotifyPropertyChanged
     {
         public HomeWindow()
         {
@@ -31,6 +33,10 @@ namespace NoteMe
 
             // Kalender-Datum Default = Heute
             Calendar.SelectedDate = DateTime.Today;
+
+            // ToDo-Liste
+            var todo = new TodoList();
+            this.DataContext = todo;
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
@@ -72,6 +78,17 @@ namespace NoteMe
             welcomeWindow.Show();
 
             this.Close();
+        }
+
+
+        // Create the OnPropertyChanged method to raise the event
+        // The calling member's name will be used as the parameter.
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

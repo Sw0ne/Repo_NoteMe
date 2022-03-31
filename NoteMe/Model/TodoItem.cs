@@ -8,17 +8,18 @@ namespace NoteMe.Model
 {
     class TodoItem
     {
-        // Fields
-        private int _idTodoItem;
-        private string _todoItemContent;
-        private bool _doneOrNot;
-        private int _idDiaryEntry;
-
         // Konstruktor
         public TodoItem()
         {
 
         }
+
+        // Fields
+        private int _idTodoItem;
+        private int _idDiaryEntry;
+
+        //private string _todoItemName;
+        //private bool _doneOrNot;
 
         // Properties
         public int IdTodoItem
@@ -33,29 +34,29 @@ namespace NoteMe.Model
             }
         }
 
-        public string TodoItemContent
-        {
-            get
-            {
-                return _todoItemContent;
-            }
-            set
-            {
-                _todoItemContent = value;
-            }
-        }
+        public string TodoItemName { get; set; } // Früher vor Umbenennen: TodoItemContent (Muss noch in DB umbenannt werden)
+        //{
+        //    get
+        //    {
+        //        return _todoItemName;
+        //    }
+        //    set
+        //    {
+        //        _todoItemName = value;
+        //    }
+        //}
 
-        public bool DoneOrNot
-        {
-            get
-            {
-                return _doneOrNot;
-            }
-            set
-            {
-                _doneOrNot = value;
-            }
-        }
+        public bool DoneOrNot { get; set; }
+        //{
+        //    get
+        //    {
+        //        return _doneOrNot;
+        //    }
+        //    set
+        //    {
+        //        _doneOrNot = value;
+        //    }
+        //}
 
         public int IdDiaryEntry
         {

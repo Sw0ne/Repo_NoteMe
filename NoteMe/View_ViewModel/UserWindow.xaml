@@ -46,10 +46,10 @@
                 <TextBlock Height="30" Width="700" HorizontalAlignment="Center" TextAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Bitte verrate mir wie du heißt, damit ich zu deinem ganz persönlichen Notizbuch werde!" Margin="100,95,100,440" />
 
                 <TextBlock Height="25" Width="420" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Dein Vorname ist..." Margin="240,200,0,340" />
-                <TextBox x:Name="inputVorname" Text="{Binding Vorname}" Height="40" Width="420" HorizontalAlignment="Center" Margin="240,230,240,295" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="inputVorname" Text="{Binding Vorname, Mode=TwoWay}"  Height="40" Width="420" HorizontalAlignment="Center" Margin="240,230,240,295" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
                 <TextBlock Height="25" Width="420" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Dein Nachname lautet..." Margin="240,290,0,250" />
-                <TextBox x:Name="inputNachname" Text="{Binding Nachname}" Height="40" Width="420" HorizontalAlignment="Center" Margin="240,320,240,205" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="inputNachname" Text="{Binding Nachname, Mode=TwoWay}" Height="40" Width="420" HorizontalAlignment="Center" Margin="240,320,240,205" BorderThickness="0" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
                 <Button x:Name="HelpButton" Height="40" Width="40" Background="IndianRed" HorizontalAlignment="Center" BorderThickness="0" Margin="240,385,620,140" Click="HelpButton_Click">
                     <TextBlock HorizontalAlignment="Stretch" Text="?" VerticalAlignment="Stretch" FontSize="28" Foreground="White"/>

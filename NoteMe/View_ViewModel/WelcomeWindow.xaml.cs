@@ -27,9 +27,13 @@ namespace NoteMe
         {
             InitializeComponent();
 
-            var unused = DatabaseConnection.Instance;
+            //var unused = DatabaseConnection.Instance;
+            DatabaseConnection myConnection = new DatabaseConnection();
+            myConnection.Initialize();
+            myConnection.OpenConnection();
 
             Gruss();
+            CheckIfUserInDB();
 
         }
 
@@ -85,7 +89,7 @@ namespace NoteMe
 
         public void CheckIfUserInDB()
         {
-            if (DatabaseConnection.Instance.Execute($"SELECT vorname FROM user;") != null) // Hilfe :-(
+            if (GrussBlockName.Text == null) // Eigentlich --> if (databaseconnection.instance.execute("select * from user;") != null) --> Funktionmiert aber nicht, deshalb das als Zwischenlösung
             {
                 GrussBlockTageszeit.Visibility = Visibility.Visible;
                 GrussBlockName.Visibility = Visibility.Visible;
@@ -96,7 +100,7 @@ namespace NoteMe
             {
                 GrussBlockTageszeit.Visibility = Visibility.Hidden;
                 GrussBlockName.Visibility = Visibility.Hidden;
-                WeiterButton.Visibility = Visibility.Hidden;
+                WeiterButton.Visibility = Visibility.Visible;
                 NeuesKonto.Visibility = Visibility.Visible;
             }
         }

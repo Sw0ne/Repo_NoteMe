@@ -59,11 +59,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\CreateTaskCommand.cs" />
     <Compile Include="Model\DailyNote.cs" />
     <Compile Include="Model\DatabaseConnection.cs" />
     <Compile Include="Model\DiaryEntry.cs" />
     <Compile Include="Model\Mood.cs" />
     <Compile Include="Model\TodoItem.cs" />
+    <Compile Include="Model\TodoList.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="View_ViewModel\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>

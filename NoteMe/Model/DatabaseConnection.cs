@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using MySql.Data;
+using MySql.Data.Types;
 
 namespace NoteMe.Model
 {
@@ -13,10 +14,11 @@ namespace NoteMe.Model
     class DatabaseConnection
     {
         private MySqlConnection connection;
+
         private static DatabaseConnection _instance;
 
         // KONSTRUKTOR
-        private DatabaseConnection()
+        public  DatabaseConnection()
         {
             Initialize();
         }
@@ -40,7 +42,7 @@ namespace NoteMe.Model
         }
 
         // WERTE FÜR DB FESTLEGEN (INKL. BENUTZEREINGABE VON USERNAME UND PASSWORT)
-        private void Initialize()
+        public void Initialize()
         {
             string connectionString = "SERVER=localhost;DATABASE=gruppeK;USERNAME=gruppeKadmin;PASSWORD=passwort;";
 
@@ -93,14 +95,32 @@ namespace NoteMe.Model
         {
             try
             {
+                // Reader
+                MySqlDataReader MyReader;
+
                 // MySqlCommand-Objekt
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 // Ausführen des MySqlCommands
-                command.ExecuteNonQuery();
+                MyReader = command.ExecuteReader();
 
-                Console.WriteLine("Query erfolgreich!");
+            }
+            catch (Exception ex)
+            {
+                // Fehler-Mitteilung
+                Console.WriteLine("Exception: " + ex.Message);
+            }
+        }
 
+        internal void ExecuteScalar(string query)
+        {
+            try
+            {
+                // MySqlCommand-Objekt
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                // Ausführen des MySqlCommands
+                command.ExecuteScalar();
             }
             catch (Exception ex)
             {
