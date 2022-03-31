@@ -72,19 +72,29 @@ namespace NoteMe.Model
         // METHODEN
         internal void Save()
         {
-            DatabaseConnection.Instance.Execute($"INSERT INTO user (vorname,nachname) VALUES ({Vorname},{Nachname});");
-            // Erste Version: DatabaseConnection.Instance.Write("INSERT INTO user (vorname,nachname) VALUES ($,$)", Vorname, Nachname);
+            var data = new Dictionary<string, string>
+            {
+                {"@Vorname", Vorname },
+                {"@Nachname", Nachname }
+                // Key , Value
+            };
+
+            DatabaseConnection.Instance.Write("INSERT INTO users (vorname,nachname) VALUES (@Vorname,@Nachname)", data);
         }
 
-        public void ShowDataVorname()
+        internal void Load()
         {
-            DatabaseConnection.Instance.Execute($"SELECT vorname FROM user;");
+            var data = DatabaseConnection.Instance.Read("SELECT * FROM users;");
+
+            if (data.Count == 0)
+            {
+                return;
+            }
+
+            Vorname = data["vorname"];
+            Nachname = data["nachname"];
         }
 
-        public void ShowDataNachname()
-        {
-            DatabaseConnection.Instance.Execute($"SELECT nachname FROM user;");
-        }
 
         // Create the OnPropertyChanged method to raise the event
         // The calling member's name will be used as the parameter.

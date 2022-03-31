@@ -21,6 +21,7 @@ namespace NoteMe.Model
         public  DatabaseConnection()
         {
             Initialize();
+            OpenConnection();
         }
 
         public static DatabaseConnection Instance
@@ -36,9 +37,16 @@ namespace NoteMe.Model
             }
         }
 
-        internal void Write(string query, params object[] args)
+        internal void Write(string query, Dictionary<string, string> data)
         {
-            throw new NotImplementedException();
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            foreach (var entry in data)
+            {
+                cmd.Parameters.AddWithValue(entry.Key, entry.Value);
+            }
+
+            cmd.ExecuteNonQuery();
         }
 
         // WERTE FÜR DB FESTLEGEN (INKL. BENUTZEREINGABE VON USERNAME UND PASSWORT)
@@ -75,6 +83,25 @@ namespace NoteMe.Model
             }
         }
 
+        internal Dictionary<string, string> Read(string query)
+        {
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            var data = new Dictionary<string, string>();
+            while (reader.Read()) // Zeilenaufruf
+            {
+                for (var column = 0; column < reader.FieldCount; column++) //Spalten
+                {
+                    data[reader.GetName(column)] = reader.GetString(column);
+                }
+            }
+
+            return data;
+        }
+
+
         // VERBINDUNG SCHLIESSEN
         public bool CloseConnection()
 
@@ -104,23 +131,6 @@ namespace NoteMe.Model
                 // Ausführen des MySqlCommands
                 MyReader = command.ExecuteReader();
 
-            }
-            catch (Exception ex)
-            {
-                // Fehler-Mitteilung
-                Console.WriteLine("Exception: " + ex.Message);
-            }
-        }
-
-        internal void ExecuteScalar(string query)
-        {
-            try
-            {
-                // MySqlCommand-Objekt
-                MySqlCommand command = new MySqlCommand(query, connection);
-
-                // Ausführen des MySqlCommands
-                command.ExecuteScalar();
             }
             catch (Exception ex)
             {

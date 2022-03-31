@@ -27,14 +27,8 @@ namespace NoteMe
         {
             InitializeComponent();
 
-            //var unused = DatabaseConnection.Instance;
-            DatabaseConnection myConnection = new DatabaseConnection();
-            myConnection.Initialize();
-            myConnection.OpenConnection();
-
             Gruss();
             CheckIfUserInDB();
-
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
@@ -89,19 +83,25 @@ namespace NoteMe
 
         public void CheckIfUserInDB()
         {
-            if (GrussBlockName.Text == null) // Eigentlich --> if (databaseconnection.instance.execute("select * from user;") != null) --> Funktionmiert aber nicht, deshalb das als Zwischenlösung
+            var user = new User();
+
+            user.Load();
+
+            if (string.IsNullOrEmpty(user.Vorname)) // Eigentlich --> if (databaseconnection.instance.execute("select * from user;") != null) --> Funktionmiert aber nicht, deshalb das als Zwischenlösung
             {
+                GrussBlockTageszeit.Visibility = Visibility.Hidden;
+                GrussBlockName.Visibility = Visibility.Hidden;
+                WeiterButton.Visibility = Visibility.Hidden;
+                NeuesKonto.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.DataContext = user;
+
                 GrussBlockTageszeit.Visibility = Visibility.Visible;
                 GrussBlockName.Visibility = Visibility.Visible;
                 WeiterButton.Visibility = Visibility.Visible;
                 NeuesKonto.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                GrussBlockTageszeit.Visibility = Visibility.Hidden;
-                GrussBlockName.Visibility = Visibility.Hidden;
-                WeiterButton.Visibility = Visibility.Visible;
-                NeuesKonto.Visibility = Visibility.Visible;
             }
         }
     }
