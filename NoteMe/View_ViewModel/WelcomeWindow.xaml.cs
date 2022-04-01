@@ -87,7 +87,7 @@ namespace NoteMe
 
             user.Load();
 
-            if (string.IsNullOrEmpty(user.Vorname)) // Eigentlich --> if (databaseconnection.instance.execute("select * from user;") != null) --> Funktionmiert aber nicht, deshalb das als Zwischenlösung
+            if (string.IsNullOrEmpty(user.Vorname))
             {
                 GrussBlockTageszeit.Visibility = Visibility.Hidden;
                 GrussBlockName.Visibility = Visibility.Hidden;

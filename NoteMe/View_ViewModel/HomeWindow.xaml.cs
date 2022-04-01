@@ -25,22 +25,13 @@ namespace NoteMe
     {
         private Mood mood;
         private CalendarLogic cal;
+        private DiaryEntry entry;
 
         public HomeWindow()
         {
             InitializeComponent();
 
-            //// Kalender-Datum Default = Heute
-            //Calendar.SelectedDate = DateTime.Today;
-
-            //// Datum und Wochentag Anzeige
-            //var time = Calendar.SelectedDate;
-            //DateTime newDateFormat = (DateTime)time;
-            //var weekday = newDateFormat.DayOfWeek;
-            //DatumBox.Text = weekday + ", " + newDateFormat.ToShortDateString();
-
             // DATACONTEXT
-
             var todo = new TodoList();
             TodoBereich.DataContext = todo;
 
@@ -74,6 +65,8 @@ namespace NoteMe
 
         private void ButtonSpeichern_Click(object sender, RoutedEventArgs e)
         {
+            entry.Save();
+            // Diary Entry speichern
             // notiz.Save();
             //mood save
             // todo save
@@ -100,24 +93,9 @@ namespace NoteMe
             this.Close();
         }
 
-        //private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    //CalendarLogic cal = new CalendarLogic();
-        //    //cal.SelectedDateAnzeigeSynchro();
-        //}
-
         private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            DateTime updatedSelectedDate = (DateTime)Calendar.SelectedDate;
-            Calendar.DisplayDate = updatedSelectedDate;
-
-            if (IsLoaded && Calendar.DisplayDate != null)
-            {
-                // Datum und Wochentag Anzeige
-                var time = Calendar.DisplayDate;
-                var weekday = time.DayOfWeek;
-                DatumBox.Text = weekday + ", " + time.ToShortDateString();
-            }
+            cal.SelectedDateAnzeigeSynchro();
         }
 
         // Buttons Moodtracker (Hässlich aber funktioniert)
@@ -224,7 +202,7 @@ namespace NoteMe
 
         public void HideMoodButtonVisibility(int moodType, Button button)
         {
-            // Schönere Logik für Mood-Button-Angelegenheit
+            // MoodTrackerButton1.Parent
         }
 
         // INotifyPropertyChanged Event Handler

@@ -81,21 +81,21 @@ namespace NoteMe.Model
             DatumBoxText = weekday + ", " + newDateFormat.ToShortDateString();
         }
 
-        //public void SelectedDateAnzeigeSynchro()
-        //{
-        //    DateTime updatedSelectedDate = (DateTime)SelectedDate;
-        //    DisplayDate = updatedSelectedDate;
+        public void SelectedDateAnzeigeSynchro()
+        {
+            DateTime updatedSelectedDate = (DateTime)SelectedDate;
+            DisplayDate = updatedSelectedDate;
 
 
-        //    //if (IsLoaded && DisplayDate != null)
-        //    //{
-        //        // Datum und Wochentag Anzeige
-        //        var time = DisplayDate;
-        //        var weekday = time.DayOfWeek;
-        //        DatumBoxText = weekday + ", " + time.ToShortDateString();
-        //    //}
+            if (DisplayDate != null)
+            {
+                // Datum und Wochentag Anzeige
+                var time = DisplayDate;
+                var weekday = time.DayOfWeek;
+                DatumBoxText = weekday + ", " + time.ToShortDateString();
+            }
 
-        //}
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

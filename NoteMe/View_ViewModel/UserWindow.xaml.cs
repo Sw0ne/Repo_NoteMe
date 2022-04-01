@@ -33,9 +33,9 @@ namespace NoteMe
 
         private void DasBinIchButton_Click(object sender, RoutedEventArgs e)
         {
-            inputVorname.Text = _user.Vorname;
-            inputNachname.Text = _user.Nachname;
-            Console.WriteLine($"Name: {_user.Vorname} {_user.Nachname}");
+            //inputVorname.Text = _user.Vorname;
+            //inputNachname.Text = _user.Nachname;
+            //Console.WriteLine($"Name: {_user.Vorname} {_user.Nachname}");
             _user.Save();
 
             // Zu WelcomeWindow wechseln

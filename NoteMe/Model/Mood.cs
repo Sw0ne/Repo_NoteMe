@@ -9,17 +9,21 @@ namespace NoteMe.Model
 {
     class Mood : INotifyPropertyChanged
     {
-        // Konstruktor
+        // KONSTRUKTOR
         public Mood()
         {
 
         }
 
-        // Fields
+        // ID_MOOD
+        private int _idMood;
         public int IdMood { get; set; }
 
+        // ID_DIARYENTRY
+        private int _idDiaryEntry;
         public int IdDiaryEntry { get; set; }
 
+        // MOODTYPE
         private byte _moodType;
         public byte MoodType
         {
@@ -37,7 +41,7 @@ namespace NoteMe.Model
             }
         }
 
-
+        // INOTIFYPROPERTYCHANGED EVENT
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

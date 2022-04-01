@@ -37,7 +37,7 @@ namespace NoteMe.Model
             }
         }
 
-        internal void Write(string query, Dictionary<string, string> data)
+        internal void Write(string query, Dictionary<string, object> data)
         {
             MySqlCommand cmd = new MySqlCommand(query, connection);
 

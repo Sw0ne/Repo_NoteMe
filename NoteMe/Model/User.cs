@@ -9,68 +9,69 @@ using System.Runtime.CompilerServices;
 
 namespace NoteMe.Model
 {
-    class User
+    class User : INotifyPropertyChanged
     {
-        // Konstruktor
+        // KONSTRUKTOR
         public User()
         {
 
         }
 
-        // Fields & Properties
-
         // VORNAME
-        private string _Vorname;
+        private string _vorname;
         public string Vorname
         {
             get
             {
-                return _Vorname;
+                return _vorname;
             }
             set
             {
-                if (_Vorname != value)
+                if (_vorname != value)
                 {
-                    _Vorname = value;
+                    _vorname = value;
+                    this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Vorname)));
                 }
+
+                //if (_vorname != value)
+                //{
+                //    _vorname = value;
+                //}
+            }
+        }
+
+        // NACHNAME
+        private string _nachname;
+        public string Nachname
+        {
+            get
+            {
+                return _nachname;
+            }
+            set
+            {
+                if (_nachname != value)
+                {
+                    _nachname = value;
+                    this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Nachname)));
+                }
+
+                //if (_nachname != value)
+                //{
+                //    _nachname = value;
+                //}
             }
         }
 
         // ID_USER
         private int _idUser;
-        public int IdUser
-        {
-            get
-            {
-                return _idUser;
-            }
-            set
-            {
-                _idUser = value;
-            }
-        }
+        public int IdUser { get; set; }
 
-        // NACHNAME
-        private string _Nachname;
-        public string Nachname
-        {
-            get
-            {
-                return _Nachname;
-            }
-            set
-            {
-                if (_Nachname != value)
-                {
-                    _Nachname = value;
-                }
-            }
-        }
 
         // METHODEN
         internal void Save()
         {
-            var data = new Dictionary<string, string>
+            var data = new Dictionary<string, object>
             {
                 {"@Vorname", Vorname },
                 {"@Nachname", Nachname }
@@ -82,7 +83,7 @@ namespace NoteMe.Model
 
         internal void Load()
         {
-            var data = DatabaseConnection.Instance.Read("SELECT * FROM users;");
+            var data = DatabaseConnection.Instance.Read("SELECT * FROM users;"); // zb diary entry select * from diary entry where diarydate
 
             if (data.Count == 0)
             {
@@ -91,6 +92,10 @@ namespace NoteMe.Model
 
             Vorname = data["vorname"];
             Nachname = data["nachname"];
+
+            var idString = data["idUser"];
+            IdUser = int.Parse(idString);
+
         }
 
         internal void GetUserId()
@@ -105,5 +110,8 @@ namespace NoteMe.Model
             Vorname = data["vorname"];
             Nachname = data["nachname"];
         }
+
+        // INOTIFYPROPERTYCHANGED-EVENT
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -9,17 +9,21 @@ namespace NoteMe.Model
 {
     class DailyNote : INotifyPropertyChanged
     {
-        // Konstruktor
+        // KONSTRUKTOR
         public DailyNote()
         {
             NoteContent = "TestNoteBinding";
         }
 
-        // Properties & Fields
+        // ID_DAILYNOTE
+        private int _idDailyNote;
         public int IdDailyNote { get; set; }
 
+        // ID_DIARYENTRY
+        private int _idDiaryEntry;
         public int IdDiaryEntry { get; set; }
 
+        // NOTECONTENT
         private string _noteContent;
         public string NoteContent
         {
@@ -37,11 +41,10 @@ namespace NoteMe.Model
             }
         }
 
-
         // METHODEN
         internal void Save()
         {
-            var data = new Dictionary<string, string>
+            var data = new Dictionary<string, object>
             {
                 {"@NoteContent", NoteContent },
                 // Key , Value
@@ -63,6 +66,7 @@ namespace NoteMe.Model
         //    Nachname = data["nachname"];
         //}
 
+        // INOTIFYPROPERTYCHANGED-EVENT
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

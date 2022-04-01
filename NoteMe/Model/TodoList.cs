@@ -11,32 +11,38 @@ namespace NoteMe.Model
 {
     class TodoList : INotifyPropertyChanged
     {
-        private ObservableCollection<TodoItem> _Tasks = new ObservableCollection<TodoItem>();
+        // KONSTRUKTOR
+        public TodoList()
+        {
+
+        }
+
+        // TASKS
+        private ObservableCollection<TodoItem> _tasks = new ObservableCollection<TodoItem>();
         public ObservableCollection<TodoItem> Tasks
         {
             get
             {
-                return _Tasks;
+                return _tasks;
             }
             set
             {
-                if (_Tasks != value)
+                if (_tasks != value)
                 {
-                    _Tasks = value;
-                    NotifyPropertyChanged(nameof(Tasks));
+                    _tasks = value;
+                    this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tasks)));
                 }
             }
         }
+
+        // TASKNAME
+        private string _taskName;
         public string TaskName { get; set; }
+
+        // CREATETASK COMMAND
         public ICommand CreateTaskCommand { get { return new CreateTaskCommand(); } }
 
-        // Updated TodoListe
-        private void NotifyPropertyChanged(String propertyName)
-        {
-            // Wenn PropertyChanged nicht null ist, wird invoke gecalled
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+        // INOTIFYPROPERTYCHANGED-EVENT
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

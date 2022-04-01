@@ -35,6 +35,7 @@ namespace gruppeKinit
             (
                 `idDiaryEntry`      INT             NOT NULL AUTO_INCREMENT,
                 `idUser`            INT             NOT NULL,
+                `diaryDate`         DATE            NOT NULL,
                 PRIMARY KEY (`idDiaryEntry`),
                 FOREIGN KEY (`idUser`) REFERENCES `Users` (`idUser`)
             )

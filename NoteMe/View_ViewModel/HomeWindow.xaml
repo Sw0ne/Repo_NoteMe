@@ -508,7 +508,7 @@
 
                 <TextBox Grid.Row="0" Height="35" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderThickness="1,2,2,1" BorderBrush="DarkSlateGray" Background="DarkSlateGray" FontSize="18" Foreground="White" Text="Mood-Tacker" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
-                <Button x:Name="MoodTrackerButton1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1,1,2,1" BorderBrush="DarkSlateGray" Background="YellowGreen" Click="MoodTrackerButton1_Click">
+                <Button x:Name="MoodTrackerButton1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1,1,2,1" BorderBrush="DarkSlateGray" Background="YellowGreen" Click="MoodTrackerButton1_Click" Tag="1">
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center">
                             <InlineUIContainer>
                                 <Image Source="C:\Users\sandra.wandzik\source\repos\NoteMe\NoteMe\Pictures\angry5.png" Height="39"/>
