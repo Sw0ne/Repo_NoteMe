@@ -393,7 +393,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <TextBlock x:Name="DatumBox" Width="400" Height="40" TextAlignment="Center" FontSize="18" Foreground="DarkSlateGray" Background="Transparent" Padding="7" HorizontalAlignment="Center" VerticalAlignment="Stretch" Grid.Column="1" Margin="195,0,250,0"/>
+            <TextBlock x:Name="DatumBox" Text="{Binding DatumBoxText}" Width="400" Height="40" TextAlignment="Center" FontSize="18" Foreground="DarkSlateGray" Background="Transparent" Padding="7" HorizontalAlignment="Center" VerticalAlignment="Stretch" Grid.Column="1" Margin="195,0,250,0"/>
         </Grid>
 
         <!-- GRID 4: TODO + MOODS + NOTES -->
@@ -409,7 +409,7 @@
             </Grid.RowDefinitions>
 
             <!-- GRID TODO + Benutzereingabe TODO + Buttons ToDo -->
-            <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="1">
+            <StackPanel x:Name="TodoBereich" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="1">
 
                 <!-- TODO UEBERSCHRIFT -->
                 <TextBox Height="35" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderThickness="2,2,1,1"  BorderBrush="DarkSlateGray" Background="DarkSlateGray" FontSize="18" Foreground="White" Text="ToDo" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
@@ -488,7 +488,10 @@
             </StackPanel>
 
             <!-- GRID MOODTRACKER + Benutzereingabe MOODTRACKER -->
-            <Grid Grid.Row="0" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1">
+            <Grid x:Name="MoodTrackerBereich" Grid.Row="0" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1">
+                <Grid.Background>
+                    <ImageBrush ImageSource="C:\Users\sandra.wandzik\source\repos\NoteMe\NoteMe\Pictures\background.png"/>
+                </Grid.Background>
 
                 <!-- Grid statt StackPanel im Moodtracker-Grid, da die Buttons sonst nicht richtig vertikal verteilt werden konnten -->
                 <Grid.ColumnDefinitions>
@@ -505,7 +508,7 @@
 
                 <TextBox Grid.Row="0" Height="35" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderThickness="1,2,2,1" BorderBrush="DarkSlateGray" Background="DarkSlateGray" FontSize="18" Foreground="White" Text="Mood-Tacker" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
-                <Button x:Name="MoodTrackerButton1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1,1,2,1" BorderBrush="DarkSlateGray" Background="YellowGreen">
+                <Button x:Name="MoodTrackerButton1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1,1,2,1" BorderBrush="DarkSlateGray" Background="YellowGreen" Click="MoodTrackerButton1_Click">
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center">
                             <InlineUIContainer>
                                 <Image Source="C:\Users\sandra.wandzik\source\repos\NoteMe\NoteMe\Pictures\angry5.png" Height="39"/>
@@ -518,7 +521,7 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="MoodTrackerButton2" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1,1,2,1" BorderBrush="DarkSlateGray" Background="yellow">
+                <Button x:Name="MoodTrackerButton2" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1,1,2,1" BorderBrush="DarkSlateGray" Background="yellow" Click="MoodTrackerButton2_Click">
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center">
                             <InlineUIContainer>
                                 <Image Source="C:\Users\sandra.wandzik\source\repos\NoteMe\NoteMe\Pictures\angry4.png" Height="39"/>
@@ -531,7 +534,7 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="MoodTrackerButton3" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1,1,2,1" BorderBrush="DarkSlateGray" Background="orange">
+                <Button x:Name="MoodTrackerButton3" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1,1,2,1" BorderBrush="DarkSlateGray" Background="orange" Click="MoodTrackerButton3_Click">
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center">
                             <InlineUIContainer>
                                 <Image Source="C:\Users\sandra.wandzik\source\repos\NoteMe\NoteMe\Pictures\angry3.png" Height="39"/>
@@ -544,7 +547,7 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="MoodTrackerButton4" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1,1,2,1" BorderBrush="DarkSlateGray" Background="HotPink">
+                <Button x:Name="MoodTrackerButton4" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1,1,2,1" BorderBrush="DarkSlateGray" Background="HotPink" Click="MoodTrackerButton4_Click">
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center">
                             <InlineUIContainer>
                                 <Image Source="C:\Users\sandra.wandzik\source\repos\NoteMe\NoteMe\Pictures\angry2.png" Height="39"/>
@@ -557,7 +560,7 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="MoodTrackerButton5" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1,1,2,1" BorderBrush="DarkSlateGray" Background="red">
+                <Button x:Name="MoodTrackerButton5" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1,1,2,1" BorderBrush="DarkSlateGray" Background="red" Click="MoodTrackerButton5_Click">
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center">
                             <InlineUIContainer>
                                 <Image Source="C:\Users\sandra.wandzik\source\repos\NoteMe\NoteMe\Pictures\angry.png" Height="39"/>
@@ -592,7 +595,7 @@
         <!-- GRID 5: KALENDER -->
         <Grid x:Name="Grid5" Grid.Row="2" Grid.Column="0" Background="LightSlateGray">
             <Viewbox HorizontalAlignment="Center" VerticalAlignment="Top" Stretch="Fill" Height="210">
-                <Calendar x:Name="Calendar" Style="{DynamicResource CalendarStyle1}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0, 0, 0, 0" Height="163" Width="180" SelectedDatesChanged="Calendar_SelectedDatesChanged">
+                <Calendar x:Name="Calendar" Style="{DynamicResource CalendarStyle1}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0, 0, 0, 0" Height="163" Width="180" SelectedDatesChanged="Calendar_SelectedDatesChanged" SelectedDate="{Binding SelectedDate}" DisplayDate="{Binding DisplayDate}">
                 </Calendar>
             </Viewbox>
         </Grid>

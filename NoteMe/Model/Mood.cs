@@ -1,37 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NoteMe.Model
 {
-    class Mood
+    class Mood : INotifyPropertyChanged
     {
-        // Fields
-        private int _idMood;
-        private byte _moodType;
-        private int _idDiaryEntry;
-
         // Konstruktor
         public Mood()
         {
 
         }
 
-        // Properties 
-        public int IdMood
-        {
-            get
-            {
-                return _idMood;
-            }
-            set
-            {
-                _idMood = value;
-            }
-        }
+        // Fields
+        public int IdMood { get; set; }
 
+        public int IdDiaryEntry { get; set; }
+
+        private byte _moodType;
         public byte MoodType
         {
             get
@@ -40,20 +29,15 @@ namespace NoteMe.Model
             }
             set
             {
-                _moodType = value;
+                if(_moodType != value)
+                {
+                    _moodType = value;
+                    this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MoodType)));
+                }
             }
         }
 
-        public int IdDiaryEntry
-        {
-            get
-            {
-                return _idDiaryEntry;
-            }
-            set
-            {
-                _idDiaryEntry = value;
-            }
-        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -1,37 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NoteMe.Model
 {
-    class DailyNote
+    class DailyNote : INotifyPropertyChanged
     {
-        // Fields
-        private int _idDailyNote;
-        private string _noteContent;
-        private int _idDiaryEntry;
-
         // Konstruktor
         public DailyNote()
         {
-
+            NoteContent = "TestNoteBinding";
         }
 
-        // Properties
-        public int IdDailyNote
-        {
-            get
-            {
-                return _idDailyNote;
-            }
-            set
-            {
-                _idDailyNote = value;
-            }
-        }
+        // Properties & Fields
+        public int IdDailyNote { get; set; }
 
+        public int IdDiaryEntry { get; set; }
+
+        private string _noteContent;
         public string NoteContent
         {
             get
@@ -40,21 +29,14 @@ namespace NoteMe.Model
             }
             set
             {
-                _noteContent = value;
+                if (_noteContent != value)
+                {
+                    _noteContent = value;
+                    this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NoteContent)));
+                }
             }
         }
 
-        public int IdDiaryEntry
-        {
-            get
-            {
-                return _idDiaryEntry;
-            }
-            set
-            {
-                _idDiaryEntry = value;
-            }
-        }
 
         // METHODEN
         internal void Save()
@@ -81,5 +63,6 @@ namespace NoteMe.Model
         //    Nachname = data["nachname"];
         //}
 
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

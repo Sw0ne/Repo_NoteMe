@@ -30,13 +30,13 @@ namespace NoteMe.Model
         public string TaskName { get; set; }
         public ICommand CreateTaskCommand { get { return new CreateTaskCommand(); } }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         // Updated TodoListe
         private void NotifyPropertyChanged(String propertyName)
         {
             // Wenn PropertyChanged nicht null ist, wird invoke gecalled
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
