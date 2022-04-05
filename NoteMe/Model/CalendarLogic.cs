@@ -10,11 +10,13 @@ namespace NoteMe.Model
 {
     class CalendarLogic : INotifyPropertyChanged
     {
+        // KONSTRUKTOR
         public CalendarLogic()
         {
             SelectedDate = DateTime.Today;
         }
 
+        // SELECTED DATE
         private DateTime? _selectedDate;
         public DateTime? SelectedDate
         {
@@ -32,6 +34,7 @@ namespace NoteMe.Model
             }
         }
 
+        // DISPLAY DATE
         private DateTime _displayDate;
         public DateTime DisplayDate
         {
@@ -49,6 +52,7 @@ namespace NoteMe.Model
             }
         }
 
+        // DATUMBOX TEXT
         private string _datumBoxText;
         public string DatumBoxText
         {
@@ -66,8 +70,7 @@ namespace NoteMe.Model
             }
         }
 
-
-
+        // METHODE 1: DEFAULT ANZEIGE HEUTIGER TAG
         public void HeutigerTagDefaultAnzeige()
         {
             // Kalender-Datum Default = Heute
@@ -81,7 +84,8 @@ namespace NoteMe.Model
             DatumBoxText = weekday + ", " + newDateFormat.ToShortDateString();
         }
 
-        public void SelectedDateAnzeigeSynchro()
+        // METHODE 2: SYNCHRONISATION SELECTED DATE & DISPLAY DATE
+        public void SelectedDateAnzeigeSynchro(DateTime? selectedDate)
         {
             DateTime updatedSelectedDate = (DateTime)SelectedDate;
             DisplayDate = updatedSelectedDate;
@@ -97,6 +101,21 @@ namespace NoteMe.Model
 
         }
 
+        // METHODE 3: DAY FORWARD
+        public void SelectedDateForward()
+        {
+            SelectedDate = SelectedDate.Value.AddDays(1);
+            SelectedDateAnzeigeSynchro(SelectedDate);
+        }
+
+        // METHODE 4: DAY BACK
+        public void SelectedDateBack()
+        {
+            SelectedDate = SelectedDate.Value.AddDays(-1);
+            SelectedDateAnzeigeSynchro(SelectedDate);
+        }
+
+        // INOTIFYPROPERTYCHANGED-EVENT
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

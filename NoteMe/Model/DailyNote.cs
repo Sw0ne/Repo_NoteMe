@@ -10,9 +10,10 @@ namespace NoteMe.Model
     class DailyNote : INotifyPropertyChanged
     {
         // KONSTRUKTOR
-        public DailyNote()
+        public DailyNote(int idDiaryEntry)
         {
-            NoteContent = "TestNoteBinding";
+            IdDiaryEntry = idDiaryEntry;
+            Load();
         }
 
         // ID_DAILYNOTE
@@ -24,7 +25,7 @@ namespace NoteMe.Model
         public int IdDiaryEntry { get; set; }
 
         // NOTECONTENT
-        private string _noteContent;
+        private string _noteContent = ""; // Sobald Objekt DailyNote erzeugt wird, ist NoteContent leer
         public string NoteContent
         {
             get
@@ -41,30 +42,53 @@ namespace NoteMe.Model
             }
         }
 
-        // METHODEN
+        // METHODE 1: INSERT & UPDATE NOTECONTENT / SAVE
         internal void Save()
         {
-            var data = new Dictionary<string, object>
+            if (IdDailyNote == 0)
             {
-                {"@NoteContent", NoteContent },
+                var data = new Dictionary<string, object>
+                {
+                    {"@NoteContent", NoteContent },
+                    {"@IdDiaryEntry", IdDiaryEntry }
+                    // Key , Value
+                };
+                DatabaseConnection.Instance.Write("INSERT INTO dailyNotes (noteContent,idDiaryEntry) VALUES (@NoteContent,@IdDiaryEntry)", data);
+            }
+            else
+            {
+                var data = new Dictionary<string, object>
+                {
+                    {"@NoteContent", NoteContent },
+                    {"@IdDailyNote", IdDailyNote }
+                    // Key , Value
+                };
+                DatabaseConnection.Instance.Write("UPDATE diaryEntries SET noteContent = (@NoteContent) WHERE idDailyNote = (@IdDailyNote)", data);
+            }
+        }
+
+        // METHODE 2: DELETE NOTECONTENT
+
+        // METHODE 3: SELECT NOTECONTENT / LOAD
+        internal void Load()
+        {
+            var data = new Dictionary<string, object> 
+            {
+                {"@IdDiaryEntry", IdDiaryEntry }
                 // Key , Value
             };
 
-            DatabaseConnection.Instance.Write("INSERT INTO dailyNotes (noteContent) VALUES (@NoteContent)", data);
+            var result = DatabaseConnection.Instance.Read("SELECT * FROM dailyNotes WHERE idDiaryEntry = @IdDiaryEntry", data);
+
+            if (result.Count == 0)
+            {
+                Console.WriteLine("No note found");
+                return;
+            }
+
+            NoteContent = result["noteContent"];
+            IdDailyNote = int.Parse(result["idDailyNote"]);
         }
-
-        //internal void Load()
-        //{
-        //    var data = DatabaseConnection.Instance.Read("SELECT * FROM users;");
-
-        //    if (data.Count == 0)
-        //    {
-        //        return;
-        //    }
-
-        //    Vorname = data["vorname"];
-        //    Nachname = data["nachname"];
-        //}
 
         // INOTIFYPROPERTYCHANGED-EVENT
         public event PropertyChangedEventHandler PropertyChanged;

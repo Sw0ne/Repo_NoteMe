@@ -37,7 +37,7 @@ namespace gruppeKinit
                 `idUser`            INT             NOT NULL,
                 `diaryDate`         DATE            NOT NULL,
                 PRIMARY KEY (`idDiaryEntry`),
-                FOREIGN KEY (`idUser`) REFERENCES `Users` (`idUser`)
+                FOREIGN KEY (`idUser`) REFERENCES `Users` (`idUser`) 
             )
             ENGINE = InnoDB;
 
@@ -48,7 +48,7 @@ namespace gruppeKinit
                 `noteContent`       VARCHAR(255)    NOT NULL,
                 `idDiaryEntry`      INT             NOT NULL,
                 PRIMARY KEY (`idDailyNote`),
-                FOREIGN KEY (`idDiaryEntry`) REFERENCES diaryEntries (`idDiaryEntry`)
+                FOREIGN KEY (`idDiaryEntry`) REFERENCES diaryEntries (`idDiaryEntry`) ON DELETE CASCADE
             )
             ENGINE = InnoDB;
 
@@ -59,7 +59,7 @@ namespace gruppeKinit
                 `moodType`          TINYINT(10)     NOT NULL,
                 `idDiaryEntry`      INT             NOT NULL,
                 PRIMARY KEY (`idMood`),
-                FOREIGN KEY (`idDiaryEntry`) REFERENCES `DiaryEntries` (`idDiaryEntry`)
+                FOREIGN KEY (`idDiaryEntry`) REFERENCES `DiaryEntries` (`idDiaryEntry`) ON DELETE CASCADE
             )
             ENGINE = InnoDB;
 
@@ -67,11 +67,11 @@ namespace gruppeKinit
             CREATE TABLE IF NOT EXISTS `TodoItems` 
             (
                 `idTodoItem`        INT             NOT NULL AUTO_INCREMENT,
-                `todoItemContent`   VARCHAR(100)    NOT NULL,
+                `todoItemName`      VARCHAR(100)    NOT NULL,
                 `doneOrNot`         BIT(2)          NOT NULL,
                 `idDiaryEntry`      INT             NOT NULL,
                 PRIMARY KEY (`idTodoItem`),
-                FOREIGN KEY (`idDiaryEntry`) REFERENCES `DiaryEntries` (`idDiaryEntry`)
+                FOREIGN KEY (`idDiaryEntry`) REFERENCES `DiaryEntries` (`idDiaryEntry`) ON DELETE CASCADE
             )
             ENGINE = InnoDB;
 

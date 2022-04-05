@@ -23,7 +23,8 @@ namespace NoteMe
     /// </summary>
     public partial class WelcomeWindow : Window
     {
-        public WelcomeWindow() // Passiert wenn Objekt erstellt wird / Konstruktor
+        // KONSTRUKTOR: WELCOME WINDOW
+        public WelcomeWindow() 
         {
             InitializeComponent();
 
@@ -31,11 +32,13 @@ namespace NoteMe
             CheckIfUserInDB();
         }
 
+        // BUTTONEXIT-CLICKEVENT (SCHLIESSEN DES FENSTERS)
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
+        // WINDOW-MOUSEDOWN-MOUSEDOWNEVENT (VERSCHIEBEN DES FENSTERS)
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -44,7 +47,7 @@ namespace NoteMe
             }
         }
 
-
+        // NEUESKONTO-BUTTON-CLICKEVENT
         private void NeuesKonto_Click(object sender, RoutedEventArgs e)
         {
             UserWindow userWindow = new UserWindow();
@@ -53,6 +56,7 @@ namespace NoteMe
             this.Close();
         }
 
+        // WEITER-BUTTON-CLICKEVENT
         private void WeiterButton_Click(object sender, RoutedEventArgs e)
         {
             HomeWindow homeWindow = new HomeWindow();
@@ -61,6 +65,7 @@ namespace NoteMe
             this.Close();
         }
 
+        // ANZEIGE DES GRUSSES (JE NACH TAGESZEIT)
         public void Gruss()
         {
             if (DateTime.Now.Hour >= 4 && DateTime.Now.Hour < 12)
@@ -81,6 +86,7 @@ namespace NoteMe
             }
         }
 
+        // ANZEIGE BESTIMMTER BUTTONS / TEXTFELDER, WENN BEREITS USER EXISTIERT, ANDERNFALLS ANZEIGE ANDERER ELEMENTE ZUR KONTOERSTELLUNG
         public void CheckIfUserInDB()
         {
             var user = new User();

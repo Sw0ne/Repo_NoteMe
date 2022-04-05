@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="OrgaNICE" Height="600" Width="900" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown" x:Name="WelcomeWindowStart">
 
-    <!-- GROSSES GRID / KOMPLETTE PAGE -->
+    <!-- GROSSES GRID / KOMPLETTES FENSTER -->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="900"/>
@@ -17,7 +17,7 @@
             <RowDefinition Height="565"/>
         </Grid.RowDefinitions>
 
-        <!-- GRID (TASKLEISTE) -->
+        <!-- GRID 1:  TASKLEISTE -->
         <Grid x:Name="GridTaskLeiste" Background="LightSlateGray" Grid.Row="0">
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" Foreground="White" Text="NoteMe"/>
             <Button x:Name="ButtonExit" Width="25" Height="25" Margin="0,0,10,0" Background="DarkSlateGray" Click="ButtonExit_Click" HorizontalAlignment="Right" VerticalAlignment="Center" BorderThickness="0">
@@ -30,10 +30,9 @@
             </Button>
         </Grid>
 
-        <!-- Grid 1: Ganze Anezige -->
+        <!-- GRID 2: ANZEIGE / ALLES UNTER TASKLEISTE -->
         <Grid x:Name="Anzeige" Grid.Row="2"  >
 
-            <!-- GROSSES GRID / KOMPLETTE PAGE -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="900"/>
             </Grid.ColumnDefinitions>
@@ -43,19 +42,21 @@
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
 
-            <!-- Grid 2: Logo -->
+            <!-- GRID 2.1: NOTEME-LOGO -->
             <Grid Grid.Row="0" Background="LightSteelBlue" >
                 <TextBlock Text="NoteMe" FontSize="200" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Impact"/>
             </Grid>
 
-            <!-- Grid 3: Tageszeit / Name + Weiter-Button + Neues Konto Button -->
+            <!-- GRID 2.2.: TAGESZEIT + NAME / WEITER-BUTTON UND NEUES-KONTO-BUTTON -->
             <Grid Grid.Row="1" Background="LightSteelBlue">
 
-                <!-- Tageszeit / Name (Gruss) -->
+                <!-- TAGESZEIT -->
                 <TextBlock x:Name="GrussBlockTageszeit" Height="40" Width="300" HorizontalAlignment="Center" Margin="150,20,450,165" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="28" Background="LightSlateGray" Visibility="Visible" TextAlignment="Right"/>
+                
+                <!-- NAME -->
                 <TextBlock x:Name="GrussBlockName" Text="{Binding Path=Vorname}"  Height="40" Width="300" HorizontalAlignment="Center" Margin="450,20,150,165" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="28" TextAlignment="Left" Visibility="Visible" Background="LightSlateGray"/>
 
-                <!-- Buttons -->
+                <!-- WEITER-BUTTON -->
                 <Button x:Name="WeiterButton" Height="40" Width="200" Background="DarkSlateGray" HorizontalAlignment="Center" BorderThickness="0" Margin="350,170,350,25" Click="WeiterButton_Click" Visibility="Visible">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Weiter" FontSize="20" Foreground="White"/>
                     <Button.Resources>
@@ -65,6 +66,7 @@
                     </Button.Resources>
                 </Button>
 
+                <!-- NEUES-KONTO-BUTTON -->
                 <Button x:Name="NeuesKonto" Height="40" Width="200" Background="DarkSlateGray" HorizontalAlignment="Center" BorderThickness="0" Margin="350,170,350,25" Click="NeuesKonto_Click" Visibility="Visible">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Neues Konto" FontSize="20" Foreground="White"/>
                     <Button.Resources>
@@ -75,7 +77,7 @@
                 </Button>
             </Grid>
 
-            <!-- Grid 4: Copyright -->
+            <!-- GRID 2.3: COPYRIGHT / ERSTELLERIN -->
             <Grid Grid.Row="2" Background="LightSteelBlue">
                 <TextBlock Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Text="©SandraWandzik2022" Foreground="DarkSlateGray" FontSize="12" Background="Transparent" Margin="395,10,385,0"/>
             </Grid>

@@ -23,6 +23,7 @@ namespace NoteMe
     {
         private User _user;
 
+        // KONSTRUKTOR: USER WINDOW
         public UserWindow()
         {
             InitializeComponent();
@@ -31,20 +32,18 @@ namespace NoteMe
             this.DataContext = _user;
         }
 
+        // DASBINICH-BUTTON-CLICKEVENT
         private void DasBinIchButton_Click(object sender, RoutedEventArgs e)
         {
-            //inputVorname.Text = _user.Vorname;
-            //inputNachname.Text = _user.Nachname;
-            //Console.WriteLine($"Name: {_user.Vorname} {_user.Nachname}");
             _user.Save();
 
-            // Zu WelcomeWindow wechseln
             WelcomeWindow welcomewindow = new WelcomeWindow();
             welcomewindow.Show();
 
             this.Close();
         }
 
+        // HELP-BUTTON-CLICKEVENT
         private void HelpButton_Click(object sender, RoutedEventArgs e)
         {
             if (HelpBeschreibungTextBlock.Visibility == Visibility.Hidden)
@@ -57,6 +56,7 @@ namespace NoteMe
             }
         }
 
+        // ABBRECHEN-BUTTON-CLICKEVENT
         private void AbbrechenButton_Click(object sender, RoutedEventArgs e)
         {
             // Zu WelcomeWindow wechseln
@@ -66,6 +66,7 @@ namespace NoteMe
             this.Close();
         }
 
+        // WINDOW-MOUSEDOWN-MOUSEDOWNEVENT (VERSCHIEBEN DES FENSTERS)
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -74,6 +75,7 @@ namespace NoteMe
             }
         }
 
+        // BUTTONEXIT-CLICKEVENT (SCHLIESSEN DES FENSTERS)
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

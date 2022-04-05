@@ -15,6 +15,7 @@ using NoteMe.Model;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls.Primitives;
+using System.Text.RegularExpressions;
 
 namespace NoteMe
 {
@@ -23,60 +24,76 @@ namespace NoteMe
     /// </summary>
     public partial class HomeWindow : INotifyPropertyChanged
     {
-        private Mood mood;
-        private CalendarLogic cal;
-        private DiaryEntry entry;
+        private Mood _mood;
+        private CalendarLogic _cal;
+        private DiaryEntry _entry;
+        private User _user;
+        private DailyNote _note;
+        private TodoList _todo;
 
+        // KONSTRUKTOR: HOME WINDOW
         public HomeWindow()
         {
             InitializeComponent();
+            toggleButtonArray = new ToggleButton[] { MoodTrackerButton1, MoodTrackerButton2, MoodTrackerButton3, MoodTrackerButton4, MoodTrackerButton5 };
+
 
             // DATACONTEXT
-            var todo = new TodoList();
-            TodoBereich.DataContext = todo;
 
-            var note = new DailyNote();
-            DailyNotesInput.DataContext = note;
+            _user = new User();
+            _user.Load();
 
-            mood = new Mood();
-            MoodTrackerBereich.DataContext = mood;
+            _cal = new CalendarLogic();
+            DatumBox.DataContext = _cal;
+            Calendar.DataContext = _cal;
 
-            cal = new CalendarLogic();
-            DatumBox.DataContext = cal;
-            Calendar.DataContext = cal;
+            _entry = new DiaryEntry(_user, _cal);
+            _entry.Load();
 
-            cal.HeutigerTagDefaultAnzeige();
+            _todo = new TodoList(_entry.IdDiaryEntry);
+            TodoBereich.DataContext = _todo;
+
+            DailyNotesInput.DataContext = _entry.Note;
+
+            _mood = new Mood(_entry.IdDiaryEntry);
+            MoodTrackerBereich.DataContext = _mood;
+            _mood.Load();
+
+            _cal.HeutigerTagDefaultAnzeige();
         }
 
+        // BUTTONEXIT-CLICKEVENT (SCHLIESSEN DES FENSTERS)
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
+        // BUTTONZURUECK-CLICKEVENT (ZU VORHERIGEM TAG NAVIGIEREN)
         private void ButtonZurueck_Click(object sender, RoutedEventArgs e)
         {
-
+            _cal.SelectedDateBack();
         }
 
+        // BUTTONVOR-CLICKEVENT (ZU NÄCHSTEM TAG NAVIGIEREN)
         private void ButtonVor_Click(object sender, RoutedEventArgs e)
         {
-            
+            _cal.SelectedDateForward();
         }
 
+        // BUTTONSPEICHERN-CLICKEVENT (SPEICHERN DES GESAMTEN DIARY ENTRIES)
         private void ButtonSpeichern_Click(object sender, RoutedEventArgs e)
         {
-            entry.Save();
-            // Diary Entry speichern
-            // notiz.Save();
-            //mood save
+            _entry.Save();
             // todo save
         }
 
+        // BUTTONLOESCHEN-CLICKEVENT (LÖSCHEN DES GESAMTEN DIARY ENTRIES)
         private void ButtonLoeschen_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
+        // WINDOW-MOUSEDOWN-MOUSEDOWNEVENT (VERSCHIEBEN DES FENSTERS)
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -85,6 +102,7 @@ namespace NoteMe
             }
         }
 
+        // BUTTONHAUPTMENU-CLICKEVENT (ZURÜCK ZUM HAUPTMENÜ / WELCOME WINDOW)
         private void ButtonHauptmenu_Click(object sender, RoutedEventArgs e)
         {
             WelcomeWindow welcomeWindow = new WelcomeWindow();
@@ -93,120 +111,186 @@ namespace NoteMe
             this.Close();
         }
 
+        // EVENT: IN CALENDER AUSGEWÄHLTES DATUM ÄNDERT SICH
         private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            cal.SelectedDateAnzeigeSynchro();
+            _cal.SelectedDateAnzeigeSynchro(_cal.SelectedDate);
+            _entry = new DiaryEntry(_user, _cal);
+
+            DailyNotesInput.DataContext = _entry.Note;
         }
 
-        // Buttons Moodtracker (Hässlich aber funktioniert)
-
-        private void MoodTrackerButton1_Click(object sender, RoutedEventArgs e)
+        // MOODTRACKERBUTTON-CLICKEVENT
+        private void MoodTrackerButton_Click(object sender, RoutedEventArgs e)
         {
-            mood.MoodType = 1;
+            ToggleButton toggleButtonPressed = sender as ToggleButton;
+            string tagAlsString = toggleButtonPressed.Tag.ToString();
+            byte tag = Convert.ToByte(tagAlsString);
 
-            if (MoodTrackerButton2.Visibility == Visibility.Visible)
-            {
-                MoodTrackerButton2.Visibility = Visibility.Hidden;
-                MoodTrackerButton3.Visibility = Visibility.Hidden;
-                MoodTrackerButton4.Visibility = Visibility.Hidden;
-                MoodTrackerButton5.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                MoodTrackerButton2.Visibility = Visibility.Visible;
-                MoodTrackerButton3.Visibility = Visibility.Visible;
-                MoodTrackerButton4.Visibility = Visibility.Visible;
-                MoodTrackerButton5.Visibility = Visibility.Visible;
-            }
+            _mood.MoodType = tag;
+            HideMoodButtonVisibilityJan(toggleButtonPressed);
+
+            Console.WriteLine(_mood.MoodType);
         }
 
-        private void MoodTrackerButton2_Click(object sender, RoutedEventArgs e)
+        private ToggleButton[] toggleButtonArray;
+
+        public void HideMoodButtonVisibilityJan(ToggleButton toggleButtonPressed)
         {
-            mood.MoodType = 2;
+            bool isChecked = toggleButtonPressed.IsChecked.HasValue ? toggleButtonPressed.IsChecked.Value : false;
 
-            if (MoodTrackerButton1.Visibility == Visibility.Visible)
+            foreach (var button in toggleButtonArray)
             {
-                MoodTrackerButton1.Visibility = Visibility.Hidden;
-                MoodTrackerButton3.Visibility = Visibility.Hidden;
-                MoodTrackerButton4.Visibility = Visibility.Hidden;
-                MoodTrackerButton5.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                MoodTrackerButton1.Visibility = Visibility.Visible;
-                MoodTrackerButton3.Visibility = Visibility.Visible;
-                MoodTrackerButton4.Visibility = Visibility.Visible;
-                MoodTrackerButton5.Visibility = Visibility.Visible;
+                button.Visibility = button == toggleButtonPressed || !isChecked ? Visibility.Visible : Visibility.Hidden;
             }
         }
 
-        private void MoodTrackerButton3_Click(object sender, RoutedEventArgs e)
+        // MOOD-BUTTONS VERSTECKEN (HÄSSLICH ABER FUNKTIONIERT) --> Binding MoodType????
+        public void HideMoodButtonVisibility(byte tag, ToggleButton toggleButtonPressed)
         {
-            mood.MoodType = 3;
+            if (toggleButtonPressed.IsChecked == true)
+            {
+                switch (tag)
+                {
+                    case 1:
+                        _mood.MoodType = 1;
 
-            if (MoodTrackerButton2.Visibility == Visibility.Visible)
-            {
-                MoodTrackerButton2.Visibility = Visibility.Hidden;
-                MoodTrackerButton1.Visibility = Visibility.Hidden;
-                MoodTrackerButton4.Visibility = Visibility.Hidden;
-                MoodTrackerButton5.Visibility = Visibility.Hidden;
+                        MoodTrackerButton2.IsChecked = false;
+                        MoodTrackerButton2.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton3.IsChecked = false;
+                        MoodTrackerButton3.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton4.IsChecked = false;
+                        MoodTrackerButton4.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton5.IsChecked = false;
+                        MoodTrackerButton5.Visibility = Visibility.Hidden;
+
+                        break;
+
+                    case 2:
+                        _mood.MoodType = 2;
+
+                        MoodTrackerButton1.IsChecked = false;
+                        MoodTrackerButton1.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton3.IsChecked = false;
+                        MoodTrackerButton3.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton4.IsChecked = false;
+                        MoodTrackerButton4.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton5.IsChecked = false;
+                        MoodTrackerButton5.Visibility = Visibility.Hidden;
+
+                        break;
+
+                    case 3:
+                        _mood.MoodType = 3;
+
+                        MoodTrackerButton1.IsChecked = false;
+                        MoodTrackerButton1.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton2.IsChecked = false;
+                        MoodTrackerButton2.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton4.IsChecked = false;
+                        MoodTrackerButton4.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton5.IsChecked = false;
+                        MoodTrackerButton5.Visibility = Visibility.Hidden;
+
+                        break;
+
+                    case 4:
+                        _mood.MoodType = 4;
+
+                        MoodTrackerButton1.IsChecked = false;
+                        MoodTrackerButton1.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton2.IsChecked = false;
+                        MoodTrackerButton2.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton3.IsChecked = false;
+                        MoodTrackerButton3.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton5.IsChecked = false;
+                        MoodTrackerButton5.Visibility = Visibility.Hidden;
+
+                        break;
+
+                    case 5:
+                        _mood.MoodType = 5;
+
+                        MoodTrackerButton1.IsChecked = false;
+                        MoodTrackerButton1.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton2.IsChecked = false;
+                        MoodTrackerButton2.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton3.IsChecked = false;
+                        MoodTrackerButton3.Visibility = Visibility.Hidden;
+
+                        MoodTrackerButton4.IsChecked = false;
+                        MoodTrackerButton4.Visibility = Visibility.Hidden;
+
+                        break;
+                }
             }
-            else
+            else if (toggleButtonPressed.IsChecked == false)
             {
-                MoodTrackerButton2.Visibility = Visibility.Visible;
-                MoodTrackerButton1.Visibility = Visibility.Visible;
-                MoodTrackerButton4.Visibility = Visibility.Visible;
-                MoodTrackerButton5.Visibility = Visibility.Visible;
+                switch (tag)
+                {
+                    case 1:
+                        _mood.MoodType = 0;
+                        MoodTrackerButton2.Visibility = Visibility.Visible;
+                        MoodTrackerButton3.Visibility = Visibility.Visible;
+                        MoodTrackerButton4.Visibility = Visibility.Visible;
+                        MoodTrackerButton5.Visibility = Visibility.Visible;
+                        break;
+
+                    case 2:
+                        _mood.MoodType = 0;
+                        MoodTrackerButton1.Visibility = Visibility.Visible;
+                        MoodTrackerButton3.Visibility = Visibility.Visible;
+                        MoodTrackerButton4.Visibility = Visibility.Visible;
+                        MoodTrackerButton5.Visibility = Visibility.Visible;
+                        break;
+
+                    case 3:
+                        _mood.MoodType = 0;
+                        MoodTrackerButton1.Visibility = Visibility.Visible;
+                        MoodTrackerButton2.Visibility = Visibility.Visible;
+                        MoodTrackerButton4.Visibility = Visibility.Visible;
+                        MoodTrackerButton5.Visibility = Visibility.Visible;
+                        break;
+
+                    case 4:
+                        _mood.MoodType = 0;
+                        MoodTrackerButton1.Visibility = Visibility.Visible;
+                        MoodTrackerButton2.Visibility = Visibility.Visible;
+                        MoodTrackerButton3.Visibility = Visibility.Visible;
+                        MoodTrackerButton5.Visibility = Visibility.Visible;
+                        break;
+
+                    case 5:
+                        _mood.MoodType = 0;
+                        MoodTrackerButton1.Visibility = Visibility.Visible;
+                        MoodTrackerButton2.Visibility = Visibility.Visible;
+                        MoodTrackerButton3.Visibility = Visibility.Visible;
+                        MoodTrackerButton4.Visibility = Visibility.Visible;
+                        break;
+                }
+            }
+
+            else if (MoodTrackerButton1.IsChecked == false && MoodTrackerButton2.IsChecked == false && MoodTrackerButton3.IsChecked == false && MoodTrackerButton4.IsChecked == false && MoodTrackerButton5.IsChecked == false)
+            {
+                _mood.MoodType = 0;
             }
         }
 
-        private void MoodTrackerButton4_Click(object sender, RoutedEventArgs e)
-        {
-            mood.MoodType = 4;
-
-            if (MoodTrackerButton2.Visibility == Visibility.Visible)
-            {
-                MoodTrackerButton2.Visibility = Visibility.Hidden;
-                MoodTrackerButton3.Visibility = Visibility.Hidden;
-                MoodTrackerButton1.Visibility = Visibility.Hidden;
-                MoodTrackerButton5.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                MoodTrackerButton2.Visibility = Visibility.Visible;
-                MoodTrackerButton3.Visibility = Visibility.Visible;
-                MoodTrackerButton1.Visibility = Visibility.Visible;
-                MoodTrackerButton5.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void MoodTrackerButton5_Click(object sender, RoutedEventArgs e)
-        {
-            mood.MoodType = 5;
-
-            if (MoodTrackerButton2.Visibility == Visibility.Visible)
-            {
-                MoodTrackerButton2.Visibility = Visibility.Hidden;
-                MoodTrackerButton3.Visibility = Visibility.Hidden;
-                MoodTrackerButton4.Visibility = Visibility.Hidden;
-                MoodTrackerButton1.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                MoodTrackerButton2.Visibility = Visibility.Visible;
-                MoodTrackerButton3.Visibility = Visibility.Visible;
-                MoodTrackerButton4.Visibility = Visibility.Visible;
-                MoodTrackerButton1.Visibility = Visibility.Visible;
-            }
-        }
-
-        public void HideMoodButtonVisibility(int moodType, Button button)
-        {
-            // MoodTrackerButton1.Parent
-        }
-
-        // INotifyPropertyChanged Event Handler
-
+        // INOTIFYPROPERTYCHANGED-EVENT
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

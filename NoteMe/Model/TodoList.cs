@@ -12,9 +12,9 @@ namespace NoteMe.Model
     class TodoList : INotifyPropertyChanged
     {
         // KONSTRUKTOR
-        public TodoList()
+        public TodoList(int idDiaryEntry)
         {
-
+            IdDiaryEntry = idDiaryEntry;
         }
 
         // TASKS
@@ -39,8 +39,20 @@ namespace NoteMe.Model
         private string _taskName;
         public string TaskName { get; set; }
 
+        // ID_DIARYENTRY 
+        private int _idDiaryEntry;
+        public int IdDiaryEntry { get; set; }
+
         // CREATETASK COMMAND
         public ICommand CreateTaskCommand { get { return new CreateTaskCommand(); } }
+
+        // METHODE 1: INSERT TODO LIST / SAVE
+
+        // METHODE 2: DELETE TODO LIST
+
+        // METHODE 3: UPDATE TODO LIST
+
+        // METHODE 4: SELECT TODO LIST / LOAD
 
         // INOTIFYPROPERTYCHANGED-EVENT
         public event PropertyChangedEventHandler PropertyChanged;

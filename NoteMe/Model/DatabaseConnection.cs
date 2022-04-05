@@ -9,8 +9,7 @@ using MySql.Data.Types;
 
 namespace NoteMe.Model
 {
-    // Klasse ist für Verbindungsaufbau zu Datenbank (Nach Erstellung) gedacht
-
+    // KLASSE FÜR VERBINDUNGSAUFBAU ZUR DATENBANK (NACH ERSTELLUNG DURCH "gruppeKinit")
     class DatabaseConnection
     {
         private MySqlConnection connection;
@@ -24,11 +23,11 @@ namespace NoteMe.Model
             OpenConnection();
         }
 
+        // INSTANZIIERUNG DER DATABASECONNECTION
         public static DatabaseConnection Instance
         {
             get
             {
-                // Diese Version ist nicht Thread-Safe, aber das ist in dieser Applikation OK.
                 if (_instance == null)
                 {
                     _instance = new DatabaseConnection();
@@ -37,19 +36,7 @@ namespace NoteMe.Model
             }
         }
 
-        internal void Write(string query, Dictionary<string, object> data)
-        {
-            MySqlCommand cmd = new MySqlCommand(query, connection);
-
-            foreach (var entry in data)
-            {
-                cmd.Parameters.AddWithValue(entry.Key, entry.Value);
-            }
-
-            cmd.ExecuteNonQuery();
-        }
-
-        // WERTE FÜR DB FESTLEGEN (INKL. BENUTZEREINGABE VON USERNAME UND PASSWORT)
+        // METHODE 1: INITIIERUNG --> WERTE FÜR DB FESTLEGEN (INKL. BENUTZEREINGABE VON USERNAME UND PASSWORT)
         public void Initialize()
         {
             string connectionString = "SERVER=localhost;DATABASE=gruppeK;USERNAME=gruppeKadmin;PASSWORD=passwort;";
@@ -57,7 +44,7 @@ namespace NoteMe.Model
             connection = new MySqlConnection(connectionString);
         }
 
-        // VERBINDUNG HERSTELLEN / ÖFFNEN
+        // METHODE 2: VERBINDUNG HERSTELLEN
         public bool OpenConnection()
         {
             try
@@ -83,6 +70,23 @@ namespace NoteMe.Model
             }
         }
 
+        // METHODE 3: VERBINDUNG SCHLIESSEN
+        public bool CloseConnection()
+
+        {
+            try
+            {
+                connection.Close();
+                return true;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        // METHODE 4: DATENSÄTZE AUS DATENBANK AUSLESEN
         internal Dictionary<string, string> Read(string query)
         {
             MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -103,22 +107,47 @@ namespace NoteMe.Model
         }
 
 
-        // VERBINDUNG SCHLIESSEN
-        public bool CloseConnection()
-
+        internal Dictionary<string, string> Read(string query, Dictionary<string, object> data)
         {
-            try
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            foreach (var entry in data)
             {
-                connection.Close();
-                return true;
+                cmd.Parameters.AddWithValue(entry.Key, entry.Value);
             }
-            catch (MySqlException ex)
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            var result = new Dictionary<string, string>();
+            while (reader.Read()) // Zeilenaufruf
             {
-                Console.WriteLine(ex.Message);
-                return false;
+                for (var column = 0; column < reader.FieldCount; column++) //Spalten
+                {
+                    result[reader.GetName(column)] = reader.GetString(column);
+                }
             }
+
+            reader.Close();
+            return result;
         }
 
+        // METHODE 5: IN DATENBANK SCHREIBEN
+        internal void Write(string query, Dictionary<string, object> data)
+        {
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            foreach (var entry in data)
+            {
+                cmd.Parameters.AddWithValue(entry.Key, entry.Value);
+            }
+
+            cmd.ExecuteNonQuery();
+        }
+
+        // METHODE 6: AUS DATENBANK LÖSCHEN
+
+
+        // METHODE 7: SQL-BEFEHL AUSFÜHREN
         internal void Execute(string query)
         {
             try
@@ -139,6 +168,7 @@ namespace NoteMe.Model
                 Console.WriteLine("Exception: " + ex.Message);
             }
         }
+
 
     }
 }

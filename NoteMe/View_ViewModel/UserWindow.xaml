@@ -7,7 +7,7 @@
         mc:Ignorable="d"
       Title="OrgaNICE" Height="600" Width="900" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown">
 
-    <!-- GROSSES GRID / KOMPLETTE PAGE -->
+    <!-- GROSSES GRID / KOMPLETTES FENSTER -->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="900"/>
@@ -17,7 +17,7 @@
             <RowDefinition Height="565"/>
         </Grid.RowDefinitions>
 
-        <!-- GRID (TASKLEISTE) -->
+        <!-- GRID 1: TASKLEISTE -->
         <Grid x:Name="GridTaskLeiste" Background="LightSlateGray" Grid.Row="0">
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" Foreground="White" Text="NoteMe"/>
             <Button x:Name="ButtonExit" Width="25" Height="25" Margin="0,0,10,0" Background="DarkSlateGray" Click="ButtonExit_Click" HorizontalAlignment="Right" VerticalAlignment="Center" BorderThickness="0">
@@ -30,9 +30,9 @@
             </Button>
         </Grid>
 
-        <!-- FRAME / ANZEIGEKASTEN -->
+        <!-- Grid 2: ANZEIGE / ALLES UNTER TASKLEISTE -->
         <Grid x:Name="Anzeige" Grid.Row="2">
-            <!-- GROSSES GRID / KOMPLETTE PAGE -->
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="900"/>
             </Grid.ColumnDefinitions>
@@ -40,7 +40,7 @@
                 <RowDefinition Height="565"/>
             </Grid.RowDefinitions>
 
-            <!-- Logo -->
+            <!-- GRID 2.1: EINGABE VORNAME, NACHNAME, HILFE-BUTTON, DASBINICH-BUTTON, ABBRECHEN-BUTTON -->
             <Grid Grid.Row="0" Background="LightSteelBlue" >
                 <TextBlock Height="35" Width="684" HorizontalAlignment="Center" TextAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="24" Background="Transparent" Text="Schön, dass du hier bist!" Margin="108,45,108,485"/>
                 <TextBlock Height="30" Width="700" HorizontalAlignment="Center" TextAlignment="Center" Foreground="DarkSlateGray" FontWeight="Bold" FontSize="16" Background="Transparent" Text="Bitte verrate mir wie du heißt, damit ich zu deinem ganz persönlichen Notizbuch werde!" Margin="100,95,100,440" />

@@ -6,68 +6,30 @@ using System.Threading.Tasks;
 
 namespace NoteMe.Model
 {
+    // WIRD DIESE KLASSE ÜBERHAUPT BENÖTIGT?????
     class TodoItem
     {
-        // Konstruktor
+        // KONSTRUKTOR
         public TodoItem()
         {
 
         }
 
-        // Fields
+        // ID_TODOITEM
         private int _idTodoItem;
-        private int _idDiaryEntry;
+        public int IdTodoItem { get; set; }
 
-        //private string _todoItemName;
-        //private bool _doneOrNot;
-
-        // Properties
-        public int IdTodoItem
-        {
-            get
-            {
-                return _idTodoItem;
-            }
-            set
-            {
-                _idTodoItem = value;
-            }
-        }
-
+        // TODOITEM NAME
+        private string _todoItemName;
         public string TodoItemName { get; set; } // Früher vor Umbenennen: TodoItemContent (Muss noch in DB umbenannt werden)
-        //{
-        //    get
-        //    {
-        //        return _todoItemName;
-        //    }
-        //    set
-        //    {
-        //        _todoItemName = value;
-        //    }
-        //}
 
+        // DONE OR NOT
+        private bool _doneOrNot;
         public bool DoneOrNot { get; set; }
-        //{
-        //    get
-        //    {
-        //        return _doneOrNot;
-        //    }
-        //    set
-        //    {
-        //        _doneOrNot = value;
-        //    }
-        //}
 
-        public int IdDiaryEntry
-        {
-            get
-            {
-                return _idDiaryEntry;
-            }
-            set
-            {
-                _idDiaryEntry = value;
-            }
-        }
+        // ID_DIARYENTRY
+        private int _idDiaryEntry;
+        public int IdDiaryEntry { get; set; }
+
     }
 }
